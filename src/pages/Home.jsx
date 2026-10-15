@@ -24,7 +24,7 @@ function Hero() {
         ease: 'none',
         scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
       })
-      gsap.to('.hero-deva', {
+      gsap.to('.hero-odia', {
         xPercent: -15,
         ease: 'none',
         scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
@@ -35,8 +35,8 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative overflow-hidden pb-20 pt-32 sm:pt-40 lg:pb-28">
-      <div className="hero-deva pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-deva text-[28vw] leading-none text-sand/70 lg:text-[20rem]">
-        {site.hindi}
+      <div className="hero-odia pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-odia text-[28vw] leading-none text-sand/70 lg:text-[20rem]">
+        {site.odia}
       </div>
       <div className="container-x relative grid gap-14 lg:grid-cols-12 lg:gap-10">
         <div className="lg:col-span-7 lg:pt-10">

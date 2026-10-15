@@ -11,7 +11,7 @@
   "dependencies": {
     "@fontsource-variable/manrope": "^5.1.0",
     "@fontsource/instrument-serif": "^5.1.0",
-    "@fontsource/tiro-devanagari-hindi": "^5.1.0",
+    "@fontsource/noto-serif-oriya": "^5.2.5",
     "@phosphor-icons/react": "^2.1.7",
     "framer-motion": "^11.11.17",
     "gsap": "^3.12.5",

@@ -14,7 +14,7 @@ import {
 // Change these to the team's real details
 export const site = {
   name: 'Samarpita',
-  hindi: 'समर्पिता',
+  odia: 'ସମର୍ପିତ',
   tagline: 'Seva hi Samarpan',
   email: 'contact@samarpita.org',
   phone: '+91 98765 43210',
