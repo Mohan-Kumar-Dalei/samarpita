@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-ink: #10231f;
+  --color-forest: #1f4d43;
+  --color-moss: #3e6b5f;
+  --color-cream: #f7f1e8;
+  --color-sand: #ede3d3;
+  --color-linen: #fbf8f3;
+  --color-saffron: #e2702a;
+  --color-saffron-soft: #f6d7bf;
+  --color-muted: #5e6b66;
+  --color-line: #dcd2c2;
+
+  --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-deva: 'Tiro Devanagari Hindi', 'Instrument Serif', serif;
+
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-cream text-ink font-sans;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  ::selection {
+    @apply bg-saffron text-cream;
+  }
+}
+
+/* Lenis recommended styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-forest;
+  }
+  .eyebrow::before {
+    content: '';
+    @apply inline-block h-[6px] w-[6px] rounded-full bg-saffron;
+  }
+  .h-display {
+    @apply font-display font-normal leading-[0.95] tracking-[-0.02em];
+  }
+  .field {
+    @apply w-full rounded-2xl border border-line bg-linen px-5 py-4 text-[15px] text-ink outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-forest focus:bg-white focus:ring-4 focus:ring-forest/10;
+  }
+  .label {
+    @apply mb-2 block text-[13px] font-semibold text-ink/80;
+  }
+}
+
+/* Subtle film grain for a premium paper feel */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
