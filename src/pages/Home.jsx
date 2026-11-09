@@ -343,9 +343,9 @@ function OdiaBand() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.band-odia', { yPercent: 12, scale: 0.94 }, {
-        yPercent: -8,
-        scale: 1,
+      // The two words drift from right to left while the section scrolls past, centred at mid-scroll
+      gsap.fromTo('.band-odia', { xPercent: 12 }, {
+        xPercent: -12,
         ease: 'none',
         scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
       })
@@ -355,15 +355,15 @@ function OdiaBand() {
   return (
     <section ref={ref} className="theme-dark relative overflow-hidden bg-cream py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(70,201,28,0.18),transparent_60%)]" />
-      <div className="container-x relative flex flex-col items-center text-center">
-        <div className="band-odia pointer-events-none select-none leading-none text-brand opacity-25">
-          <OdiaWord className="text-[clamp(6rem,22vw,18rem)]" />
+      <div className="flex justify-center">
+        <div className="band-odia pointer-events-none select-none whitespace-nowrap leading-none text-brand opacity-25">
+          <OdiaWord repeat={2} className="text-[clamp(5.5rem,20vw,17rem)]" />
         </div>
-        <div className="-mt-[clamp(3rem,9vw,7rem)] flex flex-col items-center">
-          <Quotes size={44} weight="fill" className="text-gold" />
-          <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]" />
-          <p className="mt-6 text-muted">The spirit of Samarpita</p>
-        </div>
+      </div>
+      <div className="container-x relative -mt-[clamp(2.5rem,7vw,6rem)] flex flex-col items-center text-center">
+        <Quotes size={44} weight="fill" className="text-gold" />
+        <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]" />
+        <p className="mt-6 text-muted">The spirit of Samarpita</p>
       </div>
     </section>
   )

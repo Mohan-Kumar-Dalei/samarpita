@@ -116,7 +116,7 @@ export default function InstagramReels() {
       </div>
       <div
         ref={track}
-        className="mt-14 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-6 [scrollbar-width:none] sm:px-8 lg:px-[max(3rem,calc((100vw-1320px)/2+3rem))] [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex snap-x snap-mandatory gap-6 overflow-x-auto px-5 pb-10 pt-6 [scrollbar-width:none] sm:px-8 lg:px-[max(3rem,calc((100vw-1320px)/2+3rem))] [&::-webkit-scrollbar]:hidden"
       >
         {reels.map((url, i) => (
           <ReelCard key={url} url={url} index={i} visible={visible} />

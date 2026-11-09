@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+import { Fragment, useLayoutEffect, useRef } from 'react'
 import { gsap } from '../lib/gsap'
 
 // Splits a heading into words and slides each one up from a mask.
@@ -29,13 +29,17 @@ export default function SplitHeading({ lines, as: Tag = 'h2', className = '', de
             const accent = Boolean(m)
             const text = m ? m[1] : word
             return (
-              <span key={wi} className="inline-block overflow-hidden pb-[0.12em] align-top">
-                <span className="word-inner inline-block">
-                  {accent ? <span className="italic text-brand">{text}</span> : text}
-                  {m && m[2]}
-                  {wi < line.split(' ').length - 1 ? ' ' : ''}
+              <Fragment key={wi}>
+                {/* the mask span gets a little side room so italic letters are not clipped */}
+                <span className="-mx-[0.06em] inline-block overflow-hidden px-[0.06em] pb-[0.12em] align-top">
+                  <span className="word-inner inline-block">
+                    {accent ? <span className="italic text-brand">{text}</span> : text}
+                    {m && m[2]}
+                  </span>
                 </span>
-              </span>
+                {/* a normal space between words lets long lines wrap on small screens */}
+                {wi < line.split(' ').length - 1 ? ' ' : ''}
+              </Fragment>
             )
           })}
         </span>

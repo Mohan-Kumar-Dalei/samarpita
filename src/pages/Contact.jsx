@@ -27,9 +27,9 @@ function InfoCard({ icon: Icon, title, children, href }) {
       <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand transition-colors group-hover:bg-mint group-hover:text-night">
         <Icon size={20} weight="duotone" />
       </span>
-      <span>
+      <span className="min-w-0">
         <span className="block text-[12px] font-semibold uppercase tracking-[0.18em] text-muted">{title}</span>
-        <span className="mt-1 block font-medium">{children}</span>
+        <span className="mt-1 block font-medium [overflow-wrap:anywhere]">{children}</span>
       </span>
     </Tag>
   )
@@ -278,8 +278,8 @@ export default function Contact() {
                 </span>
                 Urgent help · Call us
               </span>
-              <span className="mt-4 flex items-center gap-3 font-display text-4xl">
-                <Siren size={32} weight="duotone" /> {site.phone}
+              <span className="mt-4 flex items-center gap-3 font-display text-3xl sm:text-4xl">
+                <Siren size={32} weight="duotone" className="shrink-0" /> {site.phone}
               </span>
             </a>
             <InfoCard icon={MapPin} title="Office">{site.address}</InfoCard>
