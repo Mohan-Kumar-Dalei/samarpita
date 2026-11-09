@@ -12,9 +12,8 @@ import {
   PhoneCall,
   UserPlus,
   Heartbeat,
-  BookOpenText,
-  BowlFood,
   HandHeart,
+  ChatCircleText,
 } from '@phosphor-icons/react'
 import { gsap } from '../lib/gsap'
 import Button from '../components/Button'
@@ -24,9 +23,8 @@ import Counter from '../components/Counter'
 import Marquee from '../components/Marquee'
 import Img from '../components/Img'
 import CTABand from '../components/CTABand'
-import { images, services, stats, steps, stories, testimonials, site } from '../data/site'
+import { images, services, stats, steps, testimonials, site } from '../data/site'
 import OdiaWord from '../components/OdiaWord'
-import { LogoMark } from '../components/Logo'
 import InstagramReels from '../components/InstagramReels'
 import { listFeaturedFeedback } from '../lib/store'
 
@@ -34,9 +32,7 @@ function Hero() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.hero-logo', { scale: 0.6, rotate: -90, opacity: 0, duration: 1.4, ease: 'expo.out', delay: 0.3 })
-      gsap.to('.hero-rays', { rotate: 360, duration: 60, ease: 'none', repeat: -1 })
-      gsap.from('.hero-odia', { x: -20, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5 })
+      gsap.from('.hero-odia', { y: 20, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.3 })
       gsap.from('.hero-photo', { clipPath: 'inset(12% 12% 12% 12% round 48px)', duration: 1.8, ease: 'expo.inOut', delay: 0.4 })
       gsap.from('.hero-photo img', { scale: 1.3, duration: 2.2, ease: 'expo.out', delay: 0.5 })
       gsap.from('.hero-chip', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', delay: 1.4, stagger: 0.12 })
@@ -51,26 +47,16 @@ function Hero() {
       <div className="container-x relative grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
         {/* Text column */}
         <div className="flex flex-col items-center text-center lg:col-span-6 lg:items-start lg:text-left">
-          <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-9">
-            <div className="relative grid shrink-0 place-items-center">
-              <svg viewBox="0 0 200 200" className="hero-rays absolute h-[120px] w-[120px] sm:h-[140px] sm:w-[140px]" aria-hidden="true">
-                {Array.from({ length: 36 }, (_, i) => (
-                  <rect key={i} x="99" y="4" width="2.4" height={i % 2 ? 14 : 22} rx="1" fill="#f7c408" opacity={i % 2 ? 0.45 : 0.85} transform={`rotate(${i * 10} 100 100)`} />
-                ))}
-              </svg>
-              <LogoMark size={192} className="hero-logo relative h-[76px] w-[76px] shadow-[0_14px_40px_-12px_rgba(70,201,28,0.6)] sm:h-[88px] sm:w-[88px]" />
-            </div>
-            <div className="hero-odia text-center sm:text-left">
-              <OdiaWord className="text-[clamp(3rem,6vw,4.6rem)] leading-none text-brand" />
-              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted sm:text-[11px]">Social Foundation Trust · Odisha</p>
-            </div>
+          <div className="hero-odia">
+            <OdiaWord className="text-[clamp(3.5rem,7vw,5.5rem)] leading-none text-brand" />
+            <p className="mt-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-muted">Samarpita Social Foundation Trust · Odisha</p>
           </div>
           <SplitHeading
             as="h1"
             onScroll={false}
             delay={0.4}
             lines={['Every problem', 'deserves a', '*helping* hand.']}
-            className="mt-8 text-[clamp(2.75rem,min(6vw,10vh),6.25rem)] lg:mt-10"
+            className="mt-6 text-[clamp(2.75rem,min(6vw,10vh),6.25rem)] lg:mt-8"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +64,7 @@ function Hero() {
             transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
             className="mt-6 max-w-lg text-[17px] leading-relaxed text-muted"
           >
-            We are a team of young social workers from Odisha. Tell us your problem — we are here to listen, and to help.
+            We are a team of young social workers from Odisha. Tell us your problem. We are here to listen, and to help.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -105,7 +91,7 @@ function Hero() {
           />
           <div className="hero-chip absolute -left-2 top-6 flex items-center gap-3 rounded-2xl bg-linen/95 p-3 pr-5 shadow-xl shadow-black/15 backdrop-blur sm:-left-6">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-mint text-night"><Clock size={20} weight="bold" /></span>
-            <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">24–48 hrs</b><span className="text-muted">response time</span></span>
+            <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">24 to 48 hrs</b><span className="text-muted">response time</span></span>
           </div>
           <div className="hero-chip absolute -right-2 bottom-6 flex items-center gap-3 rounded-2xl bg-gold p-3 pr-5 text-night shadow-xl sm:-right-6">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-night/10"><LockSimple size={20} weight="bold" /></span>
@@ -120,7 +106,7 @@ function Hero() {
 function Statement() {
   const ref = useRef(null)
   const text =
-    'We believe no one should face hardship alone. From a child who can’t afford school to a patient searching for blood at midnight — Samarpita listens, acts and stays until the problem is solved.'
+    'We believe no one should face hardship alone. From a child who can’t afford school to a patient searching for blood at midnight, Samarpita listens, acts and stays until the problem is solved.'
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -260,7 +246,7 @@ function BloodBand() {
     return () => ctx.revert()
   }, [])
   const points = [
-    { icon: UserPlus, title: 'Register once', text: 'Share your blood group and phone number — it takes one minute.' },
+    { icon: UserPlus, title: 'Register once', text: 'Share your blood group and phone number. It takes one minute.' },
     { icon: PhoneCall, title: 'We call when needed', text: 'When a patient near you needs your group, our team calls you.' },
     { icon: Heartbeat, title: 'Donate, save a life', text: 'We guide you to the hospital or blood bank. You become a hero.' },
   ]
@@ -376,45 +362,68 @@ function OdiaBand() {
         <div className="-mt-[clamp(3rem,9vw,7rem)] flex flex-col items-center">
           <Quotes size={44} weight="fill" className="text-gold" />
           <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]" />
-          <p className="mt-6 text-muted">— The spirit of Samarpita</p>
+          <p className="mt-6 text-muted">The spirit of Samarpita</p>
         </div>
       </div>
     </section>
   )
 }
 
-const storyIcons = [BookOpenText, BowlFood, HandHeart]
+const ways = [
+  {
+    icon: Drop,
+    title: 'Become a blood donor',
+    text: 'Register once. When a patient needs your blood group, our team will call you.',
+    cta: 'Register now',
+    to: '/blood-donation',
+    tone: 'bg-[radial-gradient(circle_at_30%_20%,#ff6b6e,#b3141a)] text-white',
+  },
+  {
+    icon: HandHeart,
+    title: 'Volunteer with us',
+    text: 'Teach, run health camps or help families with paperwork. Give a few hours a week.',
+    cta: 'Join the team',
+    to: '/support',
+    tone: 'bg-[radial-gradient(circle_at_30%_20%,#7be04d,#2a8a12)] text-night',
+  },
+  {
+    icon: ChatCircleText,
+    title: 'Tell us your problem',
+    text: 'Facing a hardship or know someone who is? Write to us. It is free and confidential.',
+    cta: 'Contact us',
+    to: '/contact',
+    tone: 'bg-[radial-gradient(circle_at_30%_20%,#ffe27a,#d9a500)] text-night',
+  },
+]
 
-function Stories() {
+function GetInvolved() {
   return (
-    <section className="container-x py-24 sm:py-36">
-      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+    <section className="container-x py-24 sm:py-32">
+      <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
-          <span className="eyebrow">Stories of change</span>
-          <SplitHeading lines={['Real people,', '*real* impact']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
+          <span className="eyebrow">Get involved</span>
+          <SplitHeading lines={['Join the *seva*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
         </div>
-        <Button to="/about" variant="outline">Our journey</Button>
+        <p className="max-w-sm leading-relaxed text-muted">Every hand makes a difference. Choose how you would like to be part of Samarpita.</p>
       </div>
-      <Reveal className="mt-16 grid gap-6 md:grid-cols-3" stagger={0.12}>
-        {stories.map((s, i) => {
-          const Icon = storyIcons[i]
-          return (
-            <article data-reveal key={s.title} className="group flex flex-col rounded-[1.75rem] border border-line bg-linen p-3 transition-colors hover:border-brand">
-              <div className="relative grid aspect-[5/4] place-items-center overflow-hidden rounded-[1.4rem] bg-brand-soft">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(70,201,28,0.35),transparent_60%)]" />
-                <Icon size={88} weight="duotone" className="relative text-brand transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-110 group-hover:-rotate-6" />
-              </div>
-              <div className="flex flex-1 flex-col p-4">
-                <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-[12px] font-semibold text-brand">{s.tag}</span>
-                <h3 className="mt-4 font-display text-[28px] leading-tight">{s.title}</h3>
-                <p className="mt-2 text-[15px] text-muted">{s.text}</p>
-                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-[14px] font-semibold">
-                  Read more <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </article>
-          )
-        })}
+      <Reveal className="mt-14 grid gap-5 md:grid-cols-3" stagger={0.12}>
+        {ways.map(({ icon: Icon, title, text, cta, to, tone }) => (
+          <Link
+            data-reveal
+            key={title}
+            to={to}
+            className="group relative flex min-h-[340px] flex-col overflow-hidden rounded-[2rem] border border-line bg-linen p-8 transition-[translate,border-color,box-shadow] duration-500 hover:-translate-y-2 hover:border-brand hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.4)]"
+          >
+            <span className={`grid h-16 w-16 place-items-center rounded-2xl shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-6 ${tone}`}>
+              <Icon size={30} weight="fill" />
+            </span>
+            <h3 className="mt-auto pt-14 font-display text-4xl leading-tight">{title}</h3>
+            <p className="mt-3 leading-relaxed text-muted">{text}</p>
+            <span className="mt-6 inline-flex items-center gap-2 text-[15px] font-semibold text-brand">
+              {cta} <ArrowRight className="transition-transform group-hover:translate-x-1" />
+            </span>
+          </Link>
+        ))}
       </Reveal>
     </section>
   )
@@ -491,7 +500,7 @@ export default function Home() {
       <BloodBand />
       <Founder />
       <OdiaBand />
-      <Stories />
+      <GetInvolved />
       <InstagramReels />
       <Testimonials />
       <CTABand />

@@ -4,8 +4,8 @@ import { getLenis } from '../lib/lenis'
 import { site } from '../data/site'
 
 const privacy = [
-  { id: 'collect', title: 'Information we collect', body: ['When you contact us or fill a form, we collect details you choose to share — such as your name, email, phone number, location and a description of your problem.', 'We may also collect basic, anonymous usage data (like pages visited) to improve this website.'] },
-  { id: 'use', title: 'How we use your information', body: ['To understand your problem and contact you with help.', 'To coordinate with volunteers or partner experts working on your case — only with your consent.', 'To send updates about programs if you have asked to receive them.'] },
+  { id: 'collect', title: 'Information we collect', body: ['When you contact us or fill a form, we collect details you choose to share, such as your name, email, phone number, location and a description of your problem.', 'We may also collect basic, anonymous usage data (like pages visited) to improve this website.'] },
+  { id: 'use', title: 'How we use your information', body: ['To understand your problem and contact you with help.', 'To coordinate with volunteers or partner experts working on your case, only with your consent.', 'To send updates about programs if you have asked to receive them.'] },
   { id: 'protection', title: 'Data protection', body: ['Your information is accessible only to authorised members of our case team. We use reasonable technical and organisational measures to keep it safe.'] },
   { id: 'sharing', title: 'Sharing of information', body: ['We never sell or rent your personal information. We share it only when needed to help you (with your consent) or when required by law.'] },
   { id: 'cookies', title: 'Cookies', body: ['This website uses only essential cookies and local storage needed for it to function. We do not use advertising cookies.'] },

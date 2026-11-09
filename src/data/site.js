@@ -23,7 +23,7 @@ export const site = {
   whatsapp: '+91 95834 63595',
   whatsappLink: 'https://wa.me/919583463595',
   address: 'Odisha, India',
-  hours: 'Mon – Sat, 9:00 AM – 7:00 PM',
+  hours: 'Mon to Sat, 9:00 AM to 7:00 PM',
   socials: {
     facebook: '#',
     instagram: 'https://www.instagram.com/samar.pita2005/',
@@ -79,21 +79,15 @@ export const services = [
 ]
 
 export const steps = [
-  { n: '01', title: 'Tell us your problem', text: 'Fill the contact form or call us. Every message reaches our team directly — in confidence.' },
-  { n: '02', title: 'We review & reach out', text: 'A coordinator studies your case and contacts you within 24–48 hours.' },
+  { n: '01', title: 'Tell us your problem', text: 'Fill the contact form or call us. Every message reaches our team directly, in confidence.' },
+  { n: '02', title: 'We review & reach out', text: 'A coordinator studies your case and contacts you within 24 to 48 hours.' },
   { n: '03', title: 'We solve it together', text: 'We connect you with volunteers, experts and resources until the problem is solved.' },
-]
-
-export const stories = [
-  { tag: 'Education', title: 'Rani’s dream of becoming a nurse is back on track', text: 'A scholarship and books helped her finish Class 12 with distinction.' },
-  { tag: 'Relief', title: '400 families received ration kits after the cyclone', text: 'Our volunteers reached remote villages within 48 hours.' },
-  { tag: 'Elderly Care', title: 'Ramesh ji finally got his pension after 3 years', text: 'We helped him complete paperwork and follow up with the office.' },
 ]
 
 export const testimonials = [
   { quote: 'When nobody listened to us, Samarpita did. They stood by my family until my son got his treatment.', name: 'Sunita Devi', place: 'Cuttack' },
   { quote: 'I wrote one message on the website. Within a day someone called me and guided me step by step.', name: 'Prakash Nayak', place: 'Puri' },
-  { quote: 'They don’t just help — they treat you with dignity. That is what makes them different.', name: 'Anjali Mishra', place: 'Bhubaneswar' },
+  { quote: 'They don’t just help, they treat you with dignity. That is what makes them different.', name: 'Anjali Mishra', place: 'Bhubaneswar' },
 ]
 
 export const values = [

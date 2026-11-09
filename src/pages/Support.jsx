@@ -11,7 +11,7 @@ import { getLenis } from '../lib/lenis'
 
 const ways = [
   { icon: HandCoins, title: 'Donate', text: 'Your contribution funds education kits, medicines and relief for families in need.', href: '#donate', cta: 'Donate now' },
-  { icon: UsersThree, title: 'Volunteer', text: 'Give a few hours a week — teach, organise camps or help people with paperwork.', href: '#volunteer', cta: 'Join as volunteer' },
+  { icon: UsersThree, title: 'Volunteer', text: 'Give a few hours a week to teach, organise camps or help people with paperwork.', href: '#volunteer', cta: 'Join as volunteer' },
   { icon: Handshake, title: 'Partner with us', text: 'Companies and institutions can partner through CSR to create lasting impact.', href: '#volunteer', cta: 'Become a partner' },
 ]
 
@@ -190,7 +190,7 @@ function Allocation() {
         duration: 1.6,
         ease: 'expo.out',
         stagger: 0.12,
-        scrollTrigger: { trigger: ref.current, start: 'top 75%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 75%', toggleActions: 'play none none none' },
       })
     }, ref)
     return () => ctx.revert()
@@ -231,7 +231,7 @@ function VolunteerForm() {
     const data = Object.fromEntries(new FormData(form))
     setStatus('sending')
     try {
-      await sendForm({ ...data, _subject: `[Volunteer] ${data.name} — ${data.interest || 'General'}` })
+      await sendForm({ ...data, _subject: `[Volunteer] ${data.name} | ${data.interest || 'General'}` })
       setStatus('sent')
     } catch {
       setStatus('error')

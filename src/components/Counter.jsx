@@ -10,7 +10,7 @@ export default function Counter({ value, suffix = '' }) {
         n: value,
         duration: 2.2,
         ease: 'power3.out',
-        scrollTrigger: { trigger: ref.current, start: 'top 90%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 90%', toggleActions: 'play none none none' },
         onUpdate: () => {
           if (ref.current) ref.current.textContent = Math.round(obj.n).toLocaleString('en-IN') + suffix
         },

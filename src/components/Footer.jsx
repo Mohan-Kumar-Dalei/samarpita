@@ -30,7 +30,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="mt-6 max-w-sm text-[15px] leading-relaxed text-ink/70">
-              A team of social workers from Odisha dedicated to supporting anyone in need — with compassion, honesty and dignity.
+              A team of social workers from Odisha dedicated to supporting anyone in need, with compassion, honesty and dignity.
             </p>
             <div className="mt-8 flex gap-2">
               {socials.map(({ icon: Icon, href, label }) => (

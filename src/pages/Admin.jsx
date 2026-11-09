@@ -44,7 +44,7 @@ const STATUSES = {
   donated: { label: 'Donated', cls: 'bg-brand-soft text-brand' },
   inactive: { label: 'Inactive', cls: 'bg-blood/10 text-blood' },
 }
-const fmt = (iso) => (iso ? new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '—')
+const fmt = (iso) => (iso ? new Date(iso).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Not given')
 const telLink = (p) => `tel:${String(p).replace(/[^\d+]/g, '')}`
 const waLink = (p, text) => {
   let n = String(p).replace(/\D/g, '')
@@ -113,7 +113,7 @@ function CardModal({ donor, onClose }) {
       setBusy(false)
     }
   }
-  const msg = `Dear ${donor.name}, thank you for donating ${donor.group} blood and giving the gift of life. With gratitude — Samarpita Social Foundation Trust`
+  const msg = `Dear ${donor.name}, thank you for donating ${donor.group} blood and giving the gift of life. With gratitude, Samarpita Social Foundation Trust`
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -272,8 +272,8 @@ function Donors() {
               <p className="text-[13px] text-muted">{[r.area, r.district].filter(Boolean).join(', ')}</p>
             </div>
             <div className="text-[13px] leading-relaxed text-muted">
-              <p><b className="text-ink">Last donation:</b> {r.lastDonation || '—'}</p>
-              <p><b className="text-ink">Call:</b> {r.availability || '—'}</p>
+              <p><b className="text-ink">Last donation:</b> {r.lastDonation || 'Not given'}</p>
+              <p><b className="text-ink">Call:</b> {r.availability || 'Not given'}</p>
               <p><b className="text-ink">Registered:</b> {fmt(r.createdAt)}</p>
             </div>
             <div className="flex flex-wrap items-center gap-2 lg:justify-end">
@@ -357,7 +357,7 @@ export default function Admin() {
       {!isLive && (
         <p className="mb-6 flex items-start gap-2 rounded-2xl bg-gold/15 p-4 text-[14px]">
           <Info size={18} className="mt-0.5 shrink-0" />
-          Demo mode — data lives only in this browser. Connect Firebase to collect real registrations from everyone.
+          Demo mode: data lives only in this browser. Connect Firebase to collect real registrations from everyone.
         </p>
       )}
       <div className="flex flex-wrap items-end justify-between gap-4">

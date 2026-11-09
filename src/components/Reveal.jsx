@@ -8,13 +8,14 @@ export default function Reveal({ as: Tag = 'div', children, className = '', stag
     const ctx = gsap.context(() => {
       const items = ref.current.querySelectorAll('[data-reveal]')
       const targets = items.length ? items : [ref.current]
-      gsap.from(targets, {
-        y,
-        opacity: 0,
+      // fromTo (not from) so the end state is always fully visible, even if CSS transitions are mid-way
+      gsap.fromTo(targets, { y, opacity: 0 }, {
+        y: 0,
+        opacity: 1,
         duration: 1.1,
         ease: 'expo.out',
         stagger,
-        scrollTrigger: { trigger: ref.current, start: 'top 85%', once: true },
+        scrollTrigger: { trigger: ref.current, start: 'top 85%', toggleActions: 'play none none none' },
       })
     }, ref)
     return () => ctx.revert()

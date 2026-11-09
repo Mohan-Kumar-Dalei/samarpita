@@ -14,7 +14,7 @@ import { addFeedback, isLive } from '../lib/store'
 const categories = ['Education', 'Health', 'Financial', 'Family / Women issue', 'Elderly care', 'Legal help', 'Other']
 
 const faqs = [
-  { q: 'How soon will you reply?', a: 'Our team reads every message. You will usually hear from a coordinator within 24–48 hours. Urgent cases are prioritised the same day.' },
+  { q: 'How soon will you reply?', a: 'Our team reads every message. You will usually hear from a coordinator within 24 to 48 hours. Urgent cases are prioritised the same day.' },
   { q: 'Is my information safe?', a: 'Yes. Your details are only seen by our case team and are never shared with anyone without your permission.' },
   { q: 'Do you charge any fee?', a: 'No. All help from Samarpita is completely free of cost. Please beware of anyone asking for money in our name.' },
   { q: 'Can I contact you on behalf of someone else?', a: 'Of course. Just mention their name and how we can reach them in your message.' },
@@ -79,7 +79,7 @@ function ProblemForm() {
               <CheckCircle size={88} weight="duotone" className="text-brand" />
             </motion.span>
             <h3 className="mt-8 font-display text-5xl">Thank you!</h3>
-            <p className="mt-4 max-w-sm leading-relaxed text-muted">Your message has been sent. Our team will contact you within 24–48 hours.</p>
+            <p className="mt-4 max-w-sm leading-relaxed text-muted">Your message has been sent. Our team will contact you within 24 to 48 hours.</p>
             <button onClick={() => setStatus('idle')} className="mt-8 text-[14px] font-semibold underline underline-offset-4">Send another message</button>
           </motion.div>
         ) : (
@@ -257,7 +257,7 @@ export default function Contact() {
         eyebrow="Contact us"
         crumb="Contact Us"
         lines={['Tell us your', 'problem. We’re *here*.']}
-        text="Your information is kept 100% confidential. Every message is read by our team — no problem is too big or too small."
+        text="Your information is kept 100% confidential. Every message is read by our team. No problem is too big or too small."
       />
 
       <section className="container-x pb-24 sm:pb-32">

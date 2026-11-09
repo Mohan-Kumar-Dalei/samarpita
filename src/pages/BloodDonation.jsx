@@ -92,7 +92,7 @@ function DonorCard({ name, group, district }) {
               transition={{ type: 'spring', stiffness: 300, damping: 22 }}
               className="mt-1 font-display text-6xl leading-none text-blood"
             >
-              {group || '—'}
+              {group || '?'}
             </motion.p>
           </AnimatePresence>
         </div>
@@ -163,7 +163,7 @@ function RegisterForm() {
     // Live: the database is the source of truth and the email is a courtesy notification.
     // Demo: the email is the only copy the team receives, so it must succeed.
     const mail = sendForm({
-        _subject: `[Blood Donor] ${form.group} — ${form.name} — ${form.district}`,
+        _subject: `[Blood Donor] ${form.group} | ${form.name} | ${form.district}`,
         'Blood group': form.group,
         Name: form.name,
         Phone: form.phone,
@@ -460,8 +460,8 @@ function Compatibility() {
               </div>
             </div>
           ))}
-          {g === 'O-' && <p className="text-[14px] text-muted"><b className="text-ink">O-</b> is the universal donor — it can help anyone in an emergency.</p>}
-          {g === 'AB+' && <p className="text-[14px] text-muted"><b className="text-ink">AB+</b> is the universal receiver — it can receive from every group.</p>}
+          {g === 'O-' && <p className="text-[14px] text-muted"><b className="text-ink">O-</b> is the universal donor. It can help anyone in an emergency.</p>}
+          {g === 'AB+' && <p className="text-[14px] text-muted"><b className="text-ink">AB+</b> is the universal receiver. It can receive from every group.</p>}
         </div>
       </div>
     </section>
@@ -470,9 +470,9 @@ function Compatibility() {
 
 function Eligibility() {
   const items = [
-    { icon: Cake, title: '18 – 65 years', text: 'Healthy adults in this age group can donate.' },
+    { icon: Cake, title: '18 to 65 years', text: 'Healthy adults in this age group can donate.' },
     { icon: Barbell, title: '50 kg or more', text: 'Minimum body weight for a safe donation.' },
-    { icon: CalendarCheck, title: '3 – 4 months gap', text: 'Men every 3 months, women every 4 months.' },
+    { icon: CalendarCheck, title: '3 to 4 months gap', text: 'Men every 3 months, women every 4 months.' },
     { icon: FirstAidKit, title: 'Hb 12.5 g/dL+', text: 'Haemoglobin is checked before every donation.' },
   ]
   return (

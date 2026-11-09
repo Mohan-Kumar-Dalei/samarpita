@@ -14,7 +14,7 @@ export default function SplitHeading({ lines, as: Tag = 'h2', className = '', de
         ease: 'expo.out',
         stagger: 0.06,
         delay,
-        scrollTrigger: onScroll ? { trigger: ref.current, start: 'top 88%', once: true } : undefined,
+        scrollTrigger: onScroll ? { trigger: ref.current, start: 'top 88%', toggleActions: 'play none none none' } : undefined,
       })
     }, ref)
     return () => ctx.revert()

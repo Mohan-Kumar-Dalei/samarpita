@@ -92,7 +92,7 @@ export default function InstagramReels() {
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
             <span className="eyebrow">On Instagram</span>
-            <SplitHeading lines={['Seva in', '*action*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
+            <SplitHeading lines={['Seva in *action*']} className="mt-5 text-[clamp(2.5rem,5.5vw,5rem)]" />
             <p className="mt-4 max-w-md leading-relaxed text-muted">Camps, drives and everyday seva from our team. Follow @samar.pita2005 for new reels.</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

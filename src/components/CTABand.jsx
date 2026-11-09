@@ -4,7 +4,7 @@ import Reveal from './Reveal'
 
 export default function CTABand({
   lines = ['Facing a problem?', 'You are *not* alone.'],
-  text = 'Share what you are going through. Our team reads every message and will reach out to you — free of cost, in complete confidence.',
+  text = 'Share what you are going through. Our team reads every message and will reach out to you, free of cost, in complete confidence.',
   primary = { label: 'Share your problem', to: '/contact' },
   secondary = { label: 'Register as blood donor', to: '/blood-donation' },
 }) {

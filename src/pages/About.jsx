@@ -44,7 +44,7 @@ function TeamPhoto() {
         </div>
         <Reveal className="space-y-4 text-lg leading-relaxed text-muted lg:col-span-6 lg:col-start-7">
           <p data-reveal>
-            Team Samarpita is a group of young social workers and volunteers from Odisha. We come from different backgrounds, but share one belief — that nobody should be left alone with their problems.
+            Team Samarpita is a group of young social workers and volunteers from Odisha. We come from different backgrounds, but share one belief: nobody should be left alone with their problems.
           </p>
           <p data-reveal>
             “Samarpita” means <em>one who is dedicated</em>. That is what we try to be: dedicated to every family, every patient and every child who reaches out to us.
@@ -73,7 +73,7 @@ function FounderCard() {
           <SplitHeading lines={['The person who', 'started it *all*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
           <Reveal>
             <p data-reveal className="mt-6 text-lg leading-relaxed text-muted">
-              Our founder brought Team Samarpita together with a simple idea — whenever someone in need knocks, the door must open. Today that idea guides every volunteer, every camp and every blood donation call we make.
+              Our founder brought Team Samarpita together with a simple idea: whenever someone in need knocks, the door must open. Today that idea guides every volunteer, every camp and every blood donation call we make.
             </p>
             <div data-reveal className="mt-10 flex flex-wrap gap-3">
               <Button href={`tel:${site.phoneRaw}`} variant="accent">
@@ -92,7 +92,7 @@ function FounderCard() {
 
 function MissionVision() {
   const cards = [
-    { icon: Target, title: 'Our Mission', text: 'To reach every person in need with timely, dignified and practical help — in education, health, blood donation, livelihood and justice.', dark: true },
+    { icon: Target, title: 'Our Mission', text: 'To reach every person in need with timely, dignified and practical help, in education, health, blood donation, livelihood and justice.', dark: true },
     { icon: Eye, title: 'Our Vision', text: 'An Odisha where no one is left alone with their problems, and every community has the strength to care for its own.', dark: false },
   ]
   return (
