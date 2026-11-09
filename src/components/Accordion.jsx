@@ -17,7 +17,7 @@ export default function Accordion({ items }) {
             <motion.span
               animate={{ rotate: open === i ? 45 : 0 }}
               transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-colors ${open === i ? 'border-saffron bg-saffron text-white' : 'border-line'}`}
+              className={`grid h-10 w-10 shrink-0 place-items-center rounded-full border transition-colors ${open === i ? 'border-brand bg-brand text-night' : 'border-line'}`}
             >
               <Plus weight="bold" />
             </motion.span>

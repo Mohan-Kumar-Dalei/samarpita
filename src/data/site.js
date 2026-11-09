@@ -11,45 +11,39 @@ import {
   Sparkle,
 } from '@phosphor-icons/react'
 
-// Change these to the team's real details
+// Contact details shown across the site
 export const site = {
   name: 'Samarpita',
   odia: 'ସମର୍ପିତ',
   tagline: 'Seva hi Samarpan',
-  email: 'contact@samarpita.org',
-  phone: '+91 98765 43210',
-  whatsapp: '+91 98765 43210',
-  helpline: '1800 123 4567',
-  address: 'Plot 21, Seva Marg, Bhubaneswar, Odisha 751001',
+  email: 'samarpitateam@gmail.com',
+  phone: '+91 95834 63595',
+  phoneRaw: '+919583463595',
+  whatsapp: '+91 95834 63595',
+  whatsappLink: 'https://wa.me/919583463595',
+  address: 'Odisha, India',
   hours: 'Mon – Sat, 9:00 AM – 7:00 PM',
   socials: {
     facebook: '#',
     instagram: '#',
     youtube: '#',
     x: '#',
-    whatsapp: '#',
+    whatsapp: 'https://wa.me/919583463595',
   },
 }
 
-// Placeholder photos — replace with the team's own photos in /public/images
-const u = (id, w = 1600) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`
+// Photos are served from ImageKit, which resizes and compresses them on the fly
+const ik = (file, tr = 'w-1600') => `https://ik.imagekit.io/h7wep5nji/samarpita/${file}?tr=${tr},q-80,f-auto`
 export const images = {
-  hero: u('photo-1488521787991-ed7bbaae773c'),
-  heroSide: u('photo-1469571486292-0ba58a3f068b', 900),
-  story: u('photo-1559027615-cd4628902d4a', 1200),
-  community: u('photo-1593113598332-cd288d649433', 1200),
-  children: u('photo-1497486751825-1233686d5d80', 1200),
-  donate: u('photo-1532629345422-7515f3d16bb6', 1200),
-  stories: [
-    u('photo-1509099836639-18ba1795216d', 900),
-    u('photo-1544027993-37dbfe43562a', 900),
-    u('photo-1531206715517-5c0ba140b2b8', 900),
-  ],
+  team: ik('team-samarpita-group.jpg', 'w-2000'),
+  teamSmall: ik('team-samarpita-group.jpg', 'w-1200'),
+  founder: ik('founder.jpg', 'w-900'),
 }
 
 export const nav = [
   { label: 'Home', to: '/' },
   { label: 'About Us', to: '/about' },
+  { label: 'Blood Donation', to: '/blood-donation' },
   { label: 'Support Us', to: '/support' },
   { label: 'Contact Us', to: '/contact' },
 ]
@@ -93,23 +87,4 @@ export const values = [
   { icon: ShieldCheck, title: 'Honesty', text: 'Complete transparency in every rupee and action.' },
   { icon: UsersThree, title: 'Equality', text: 'Help for every person, regardless of background.' },
   { icon: Sparkle, title: 'Dedication', text: 'We stay until the problem is truly solved.' },
-]
-
-export const team = [
-  { name: 'Ananya Sahoo', role: 'Founder', initials: 'AS' },
-  { name: 'Rohit Das', role: 'Co-Founder', initials: 'RD' },
-  { name: 'Priya Mohanty', role: 'Program Coordinator', initials: 'PM' },
-  { name: 'Sanjay Behera', role: 'Field Coordinator', initials: 'SB' },
-  { name: 'Kavya Panda', role: 'Women’s Support Lead', initials: 'KP' },
-  { name: 'Arjun Rout', role: 'Health Camps Lead', initials: 'AR' },
-  { name: 'Meera Jena', role: 'Legal Guidance', initials: 'MJ' },
-  { name: 'Vikash Pradhan', role: 'Volunteer Lead', initials: 'VP' },
-]
-
-export const journey = [
-  { year: '2018', title: 'A small beginning', text: 'Five friends started teaching children under a banyan tree.' },
-  { year: '2020', title: 'Pandemic relief', text: 'Delivered 20,000+ meals and medicines during lockdown.' },
-  { year: '2022', title: 'Registered as a trust', text: 'Samarpita became an official non-profit organisation.' },
-  { year: '2024', title: '60 villages', text: 'Health camps and education centres across 60 villages.' },
-  { year: '2026', title: 'Help for everyone', text: 'Launched online help — anyone can now share their problem.' },
 ]

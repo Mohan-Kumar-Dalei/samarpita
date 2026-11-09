@@ -62,7 +62,7 @@ function LegalPage({ title, crumb, sections }) {
                         active === s.id ? 'bg-ink text-cream' : 'text-ink/60 hover:bg-sand hover:text-ink'
                       }`}
                     >
-                      <span className={`font-display text-lg ${active === s.id ? 'text-saffron' : ''}`}>{String(i + 1).padStart(2, '0')}</span>
+                      <span className={`font-display text-lg ${active === s.id ? 'text-brand' : ''}`}>{String(i + 1).padStart(2, '0')}</span>
                       {s.title}
                     </button>
                   </li>
@@ -73,7 +73,7 @@ function LegalPage({ title, crumb, sections }) {
           <div className="space-y-14 lg:col-span-7 lg:col-start-6">
             {sections.map((s, i) => (
               <article key={s.id} id={s.id} className="scroll-mt-32">
-                <p className="font-display text-xl text-saffron">{String(i + 1).padStart(2, '0')}</p>
+                <p className="font-display text-xl text-brand">{String(i + 1).padStart(2, '0')}</p>
                 <h2 className="mt-2 font-display text-4xl">{s.title}</h2>
                 <div className="mt-5 space-y-3 text-[17px] leading-relaxed text-muted">
                   {s.body.map((p, k) => <p key={k}>{p}</p>)}

@@ -2,13 +2,13 @@ import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowUpRight } from '@phosphor-icons/react'
+import { getLenis } from '../lib/lenis'
 
 const styles = {
-  primary: 'bg-ink text-cream hover:bg-forest',
-  accent: 'bg-saffron text-white hover:bg-[#cf6220]',
+  primary: 'bg-ink text-cream hover:bg-brand hover:text-night',
+  accent: 'bg-mint text-night shadow-[0_10px_30px_-10px_rgba(43,217,138,0.6)] hover:bg-[#4ce6a0]',
   outline: 'border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-cream',
-  light: 'bg-cream text-ink hover:bg-white',
-  ghostLight: 'border border-cream/30 text-cream hover:bg-cream hover:text-ink',
+  blood: 'bg-blood text-white shadow-[0_10px_30px_-10px_rgba(229,56,59,0.6)] hover:bg-[#cc2f32]',
 }
 
 // Magnetic pill button: drifts slightly toward the cursor on hover
@@ -45,7 +45,19 @@ export default function Button({ to, href, children, variant = 'primary', icon =
       {to ? (
         <Link to={to} className={cls}>{inner}</Link>
       ) : href ? (
-        <a href={href} className={cls}>{inner}</a>
+        <a
+          href={href}
+          className={cls}
+          onClick={(e) => {
+            // In-page anchors: scroll smoothly instead of changing the hash route
+            if (href.startsWith('#')) {
+              e.preventDefault()
+              getLenis()?.scrollTo(href, { offset: -100 })
+            }
+          }}
+        >
+          {inner}
+        </a>
       ) : (
         <button type={type || 'button'} onClick={onClick} disabled={disabled} className={cls}>{inner}</button>
       )}

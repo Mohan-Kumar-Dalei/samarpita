@@ -1,20 +1,63 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+  Colour tokens are CSS variables so the whole site can switch between light and dark.
+  cream = page background, linen = raised surface, sand = sunken surface,
+  ink = main text, brand = Samarpita green, forest = deep green panels.
+  Add `theme-dark` to any section to always render it with the dark palette.
+*/
+:root {
+  --c-cream: #f2f5f0;
+  --c-linen: #ffffff;
+  --c-sand: #e3e9e1;
+  --c-ink: #0a0f0c;
+  --c-muted: #56625b;
+  --c-line: #d3dbd1;
+  --c-brand: #0e9f5e;
+  --c-brand-soft: #d2f1e1;
+  --c-forest: #0b1d15;
+  --c-moss: #1d5a3e;
+  color-scheme: light;
+}
+
+.dark,
+.theme-dark {
+  --c-cream: #070a08;
+  --c-linen: #0f1512;
+  --c-sand: #161e1a;
+  --c-ink: #eaf2ed;
+  --c-muted: #91a198;
+  --c-line: #232d28;
+  --c-brand: #2bd98a;
+  --c-brand-soft: #10281d;
+  --c-forest: #0b1d15;
+  --c-moss: #1d5a3e;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-cream: var(--c-cream);
+  --color-linen: var(--c-linen);
+  --color-sand: var(--c-sand);
+  --color-ink: var(--c-ink);
+  --color-muted: var(--c-muted);
+  --color-line: var(--c-line);
+  --color-brand: var(--c-brand);
+  --color-brand-soft: var(--c-brand-soft);
+  --color-forest: var(--c-forest);
+  --color-moss: var(--c-moss);
+}
+
 @theme {
-  --color-ink: #10231f;
-  --color-forest: #1f4d43;
-  --color-moss: #3e6b5f;
-  --color-cream: #f7f1e8;
-  --color-sand: #ede3d3;
-  --color-linen: #fbf8f3;
-  --color-saffron: #e2702a;
-  --color-saffron-soft: #f6d7bf;
-  --color-muted: #5e6b66;
-  --color-line: #dcd2c2;
+  --color-night: #070a08;
+  --color-mint: #2bd98a;
+  --color-blood: #e5383b;
 
   --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
   --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-odia: 'Noto Serif Oriya', 'Instrument Serif', serif;
+  --font-odia: 'Noto Serif Oriya Variable', 'Instrument Serif', serif;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -25,11 +68,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
   body {
-    @apply bg-cream text-ink font-sans;
+    @apply bg-cream text-ink font-sans transition-colors duration-500;
     font-feature-settings: 'ss01', 'cv11';
   }
+  .theme-dark {
+    @apply text-ink;
+  }
   ::selection {
-    @apply bg-saffron text-cream;
+    @apply bg-brand text-night;
   }
 }
 
@@ -53,24 +99,33 @@ html.lenis body {
     @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-forest;
+    @apply inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-muted;
   }
   .eyebrow::before {
     content: '';
-    @apply inline-block h-[6px] w-[6px] rounded-full bg-saffron;
+    @apply inline-block h-[6px] w-[6px] rounded-full bg-brand;
   }
   .h-display {
     @apply font-display font-normal leading-[0.95] tracking-[-0.02em];
   }
   .field {
-    @apply w-full rounded-2xl border border-line bg-linen px-5 py-4 text-[15px] text-ink outline-none transition-all duration-300 placeholder:text-muted/60 focus:border-forest focus:bg-white focus:ring-4 focus:ring-forest/10;
+    @apply w-full rounded-2xl border border-line bg-linen px-5 py-4 text-[15px] text-ink outline-none transition-all duration-300 placeholder:text-muted/70 focus:border-brand focus:ring-4 focus:ring-brand/15;
   }
   .label {
     @apply mb-2 block text-[13px] font-semibold text-ink/80;
   }
+  /* Odia calligraphy wordmark */
+  .odia-callig {
+    font-family: var(--font-odia);
+    font-weight: 900;
+    font-style: normal;
+    display: inline-block;
+    transform: skewX(-12deg);
+    letter-spacing: -0.01em;
+  }
 }
 
-/* Subtle film grain for a premium paper feel */
+/* Subtle film grain for a premium feel */
 .grain::after {
   content: '';
   position: absolute;

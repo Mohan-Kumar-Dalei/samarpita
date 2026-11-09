@@ -2,7 +2,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { gsap } from '../lib/gsap'
 
 // Splits a heading into words and slides each one up from a mask.
-// Pass `lines` as an array; wrap a word in *asterisks* to render it in saffron italic.
+// Pass `lines` as an array; wrap a word in *asterisks* to render it in brand-green italic.
 export default function SplitHeading({ lines, as: Tag = 'h2', className = '', delay = 0, onScroll = true }) {
   const ref = useRef(null)
   useLayoutEffect(() => {
@@ -31,7 +31,7 @@ export default function SplitHeading({ lines, as: Tag = 'h2', className = '', de
             return (
               <span key={wi} className="inline-block overflow-hidden pb-[0.12em] align-top">
                 <span className="word-inner inline-block">
-                  {accent ? <span className="italic text-saffron">{text}</span> : text}
+                  {accent ? <span className="italic text-brand">{text}</span> : text}
                   {m && m[2]}
                   {wi < line.split(' ').length - 1 ? ' ' : ''}
                 </span>

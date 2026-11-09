@@ -8,7 +8,7 @@ export default function Marquee({ items, className = '' }) {
         {row.map((t, i) => (
           <span key={i} className="mx-8 inline-flex items-center gap-8 font-display text-4xl sm:text-6xl">
             {t}
-            <Sparkle weight="fill" className="h-6 w-6 text-saffron" />
+            <Sparkle weight="fill" className="h-6 w-6 text-brand" />
           </span>
         ))}
       </div>

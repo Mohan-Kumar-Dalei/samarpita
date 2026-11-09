@@ -1,7 +1,21 @@
 import { useLayoutEffect, useRef, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowUpRight, ArrowLeft, ArrowRight, Clock, LockSimple, Quotes } from '@phosphor-icons/react'
+import {
+  ArrowUpRight,
+  ArrowLeft,
+  ArrowRight,
+  Clock,
+  LockSimple,
+  Quotes,
+  Drop,
+  PhoneCall,
+  UserPlus,
+  Heartbeat,
+  BookOpenText,
+  BowlFood,
+  HandHeart,
+} from '@phosphor-icons/react'
 import { gsap } from '../lib/gsap'
 import Button from '../components/Button'
 import SplitHeading from '../components/SplitHeading'
@@ -16,75 +30,80 @@ function Hero() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.hero-img', { clipPath: 'inset(100% 0 0 0)', duration: 1.6, ease: 'expo.inOut', delay: 0.4, stagger: 0.15 })
-      gsap.from('.hero-img img', { scale: 1.3, duration: 2, ease: 'expo.out', delay: 0.6 })
-      gsap.from('.hero-chip', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', delay: 1.4, stagger: 0.12 })
-      gsap.to('.hero-parallax', {
-        yPercent: -12,
+      gsap.from('.hero-photo', { clipPath: 'inset(30% 12% 0% 12% round 48px)', duration: 1.8, ease: 'expo.inOut', delay: 0.5 })
+      gsap.from('.hero-photo img', { scale: 1.35, duration: 2.2, ease: 'expo.out', delay: 0.6 })
+      gsap.from('.hero-odia', { yPercent: 40, opacity: 0, duration: 1.6, ease: 'expo.out', delay: 0.7 })
+      gsap.from('.hero-chip', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', delay: 1.6, stagger: 0.12 })
+      gsap.to('.hero-photo img', {
+        yPercent: 10,
         ease: 'none',
-        scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
-      })
-      gsap.to('.hero-odia', {
-        xPercent: -15,
-        ease: 'none',
-        scrollTrigger: { trigger: ref.current, start: 'top top', end: 'bottom top', scrub: true },
+        scrollTrigger: { trigger: '.hero-photo', start: 'top 80%', end: 'bottom top', scrub: true },
       })
     }, ref)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={ref} className="relative overflow-hidden pb-20 pt-32 sm:pt-40 lg:pb-28">
-      <div className="hero-odia pointer-events-none absolute -bottom-10 left-0 select-none whitespace-nowrap font-odia text-[28vw] leading-none text-sand/70 lg:text-[20rem]">
-        {site.odia}
-      </div>
-      <div className="container-x relative grid gap-14 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-7 lg:pt-10">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="eyebrow">
-            A social service team · Est. 2018
-          </motion.span>
-          <SplitHeading
-            as="h1"
-            onScroll={false}
-            delay={0.35}
-            lines={['Every problem', 'deserves a', '*helping* hand.']}
-            className="mt-6 text-[clamp(3.4rem,8.4vw,8.25rem)]"
-          />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 max-w-lg text-lg leading-relaxed text-muted"
-          >
-            Samarpita is a team of social workers dedicated to supporting anyone in need. Tell us your problem — we are here to listen, and to help.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-10 flex flex-wrap items-center gap-3"
-          >
-            <Button to="/contact" variant="accent">Share your problem</Button>
-            <Button to="/support" variant="outline" icon={false}>Support our cause</Button>
-          </motion.div>
-        </div>
-
-        <div className="relative lg:col-span-5">
-          <div className="hero-parallax relative">
-            <Img src={images.hero} alt="Volunteers helping the community" className="hero-img aspect-[4/5] rounded-[2rem] sm:rounded-[2.5rem]" />
-            <Img
-              src={images.heroSide}
-              alt="Volunteers at work"
-              className="hero-img absolute -bottom-10 -left-6 hidden aspect-square w-44 rounded-3xl ring-8 ring-cream sm:block lg:-left-16 lg:w-52"
+    <section ref={ref} className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+      <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-brand/10 blur-3xl" />
+      <div className="container-x relative">
+        <div className="grid items-end gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-8">
+            <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="eyebrow">
+              Team Samarpita · Odisha
+            </motion.span>
+            <SplitHeading
+              as="h1"
+              onScroll={false}
+              delay={0.35}
+              lines={['Every problem', 'deserves a *helping*', 'hand.']}
+              className="mt-6 text-[clamp(3.2rem,8vw,8rem)]"
             />
           </div>
-          <div className="hero-chip absolute -right-2 top-8 flex items-center gap-3 rounded-2xl bg-linen/90 p-3 pr-5 shadow-xl shadow-ink/10 backdrop-blur sm:-right-6">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-saffron text-white"><Clock size={20} weight="bold" /></span>
+          <div className="lg:col-span-4 lg:pb-4">
+            <div className="hero-odia -mt-[0.3em] leading-none">
+              <span className="odia-callig bg-gradient-to-br from-brand via-mint to-moss bg-clip-text px-2 pb-[0.12em] pt-[0.32em] leading-[1.2] text-[clamp(4.5rem,11vw,8.5rem)] text-transparent">
+                {site.odia}
+              </span>
+              <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.3em] text-muted">Seva hi Samarpan</p>
+            </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-6 max-w-md text-[17px] leading-relaxed text-muted"
+            >
+              We are a team of young social workers from Odisha. Tell us your problem — we are here to listen, and to help.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
+              className="mt-8 flex flex-wrap items-center gap-3"
+            >
+              <Button to="/contact" variant="accent">Share your problem</Button>
+              <Button to="/blood-donation" variant="outline" icon={false}>
+                <span className="flex items-center gap-2"><Drop weight="fill" className="text-blood" /> Donate blood</span>
+              </Button>
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="relative mt-14">
+          <Img
+            src={images.team}
+            alt="Team Samarpita members holding the Team Samarpita banner"
+            className="hero-photo aspect-[4/3] rounded-[2rem] sm:aspect-[16/9] sm:rounded-[2.5rem] lg:aspect-[21/9]"
+            imgClassName="object-[50%_62%]"
+            loading="eager"
+          />
+          <div className="hero-chip absolute left-4 top-4 flex items-center gap-3 rounded-2xl bg-linen/90 p-3 pr-5 shadow-xl shadow-black/10 backdrop-blur sm:left-6 sm:top-6">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-mint text-night"><Clock size={20} weight="bold" /></span>
             <span className="text-[13px] leading-tight"><b className="block text-[15px]">24–48 hrs</b><span className="text-muted">response time</span></span>
           </div>
-          <div className="hero-chip absolute bottom-24 right-4 flex items-center gap-3 rounded-2xl bg-ink p-3 pr-5 text-cream shadow-xl shadow-ink/20 sm:-right-4">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-cream/10"><LockSimple size={20} weight="bold" /></span>
-            <span className="text-[13px] leading-tight"><b className="block text-[15px]">100% free</b><span className="text-cream/60">&amp; confidential</span></span>
+          <div className="hero-chip theme-dark absolute bottom-4 right-4 hidden items-center gap-3 rounded-2xl bg-cream/90 p-3 pr-5 shadow-xl backdrop-blur sm:flex sm:bottom-6 sm:right-6">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-ink/10"><LockSimple size={20} weight="bold" className="text-brand" /></span>
+            <span className="text-[13px] leading-tight"><b className="block text-[15px]">100% free</b><span className="text-muted">&amp; confidential</span></span>
           </div>
         </div>
       </div>
@@ -95,7 +114,7 @@ function Hero() {
 function Statement() {
   const ref = useRef(null)
   const text =
-    'We believe no one should face hardship alone. From a child who can’t afford school to an elder waiting for a pension — Samarpita listens, acts and stays until the problem is solved.'
+    'We believe no one should face hardship alone. From a child who can’t afford school to a patient searching for blood at midnight — Samarpita listens, acts and stays until the problem is solved.'
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -146,7 +165,7 @@ function Services() {
             <span className="eyebrow">What we do</span>
             <SplitHeading lines={['Help for every', 'kind of *struggle*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
           </div>
-          <p className="max-w-sm text-muted leading-relaxed">
+          <p className="max-w-sm leading-relaxed text-muted">
             Whatever the problem, our volunteers and partner experts work on the ground to find a real solution.
           </p>
         </div>
@@ -159,13 +178,13 @@ function Services() {
               className="group relative flex min-h-[300px] flex-col overflow-hidden rounded-[1.75rem] border border-line bg-cream p-8 transition-colors duration-500 hover:border-ink hover:bg-ink hover:text-cream"
             >
               <div className="flex items-start justify-between">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-saffron-soft text-saffron transition-colors duration-500 group-hover:bg-saffron group-hover:text-white">
+                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand-soft text-brand transition-colors duration-500 group-hover:bg-mint group-hover:text-night">
                   <Icon size={28} weight="duotone" />
                 </span>
-                <span className="font-display text-xl text-muted group-hover:text-cream/40">0{i + 1}</span>
+                <span className="font-display text-xl text-muted group-hover:text-cream/50">0{i + 1}</span>
               </div>
               <h3 className="mt-auto pt-12 font-display text-3xl">{title}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-muted transition-colors duration-500 group-hover:text-cream/65">{text}</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-muted transition-colors duration-500 group-hover:text-cream/70">{text}</p>
               <ArrowUpRight
                 size={22}
                 className="absolute bottom-8 right-8 -translate-x-2 translate-y-2 opacity-0 transition-all duration-500 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100"
@@ -203,7 +222,7 @@ function Process() {
         </div>
         <div className="proc-list relative lg:col-span-7">
           <div className="absolute bottom-0 left-[27px] top-0 w-px bg-line" />
-          <div className="proc-line absolute bottom-0 left-[27px] top-0 w-px origin-top bg-saffron" />
+          <div className="proc-line absolute bottom-0 left-[27px] top-0 w-px origin-top bg-brand" />
           <Reveal className="space-y-16" stagger={0.15}>
             {steps.map((s) => (
               <div data-reveal key={s.n} className="relative flex gap-8">
@@ -221,37 +240,141 @@ function Process() {
   )
 }
 
-function ParallaxBand() {
+function BloodBand() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.band-img', { yPercent: -15 }, {
-        yPercent: 15,
+      gsap.fromTo('.drop-fill', { scaleY: 0 }, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: { trigger: ref.current, start: 'top 75%', end: 'center 40%', scrub: true },
+      })
+      gsap.fromTo('.pulse-line', { strokeDashoffset: 600 }, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.inOut', repeat: -1 })
+    }, ref)
+    return () => ctx.revert()
+  }, [])
+  const points = [
+    { icon: UserPlus, title: 'Register once', text: 'Share your blood group and phone number — it takes one minute.' },
+    { icon: PhoneCall, title: 'We call when needed', text: 'When a patient near you needs your group, our team calls you.' },
+    { icon: Heartbeat, title: 'Donate, save a life', text: 'We guide you to the hospital or blood bank. You become a hero.' },
+  ]
+  return (
+    <section ref={ref} className="container-x pb-24 sm:pb-36">
+      <div className="theme-dark grain relative overflow-hidden rounded-[2rem] bg-cream ring-1 ring-line sm:rounded-[3rem]">
+        <div className="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-blood/25 blur-3xl" />
+        <div className="relative grid gap-12 p-6 py-14 sm:p-14 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-7">
+            <span className="eyebrow text-blood! before:bg-blood!">Blood donor registry</span>
+            <SplitHeading lines={['Your blood can', '*save* a life.']} className="mt-5 text-[clamp(2.75rem,6vw,5.5rem)]" />
+            <p className="mt-6 max-w-lg leading-relaxed text-muted">
+              Join Samarpita’s blood donor family. When someone in Odisha urgently needs blood, our team calls registered donors of the matching group.
+            </p>
+            <Reveal className="mt-10 grid gap-4 sm:grid-cols-3" stagger={0.1}>
+              {points.map(({ icon: Icon, title, text }) => (
+                <div data-reveal key={title} className="rounded-2xl border border-line bg-linen p-5">
+                  <Icon size={26} weight="duotone" className="text-blood" />
+                  <h3 className="mt-6 font-display text-2xl">{title}</h3>
+                  <p className="mt-2 text-[14px] leading-relaxed text-muted">{text}</p>
+                </div>
+              ))}
+            </Reveal>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Button to="/blood-donation" variant="blood">Register as donor</Button>
+              <Button href={`tel:${site.phoneRaw}`} variant="outline" icon={false}>Need blood? Call us</Button>
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-[340px] lg:col-span-5">
+            <svg viewBox="0 0 200 260" className="w-full drop-shadow-[0_30px_60px_rgba(229,56,59,0.35)]" aria-hidden="true">
+              <defs>
+                <clipPath id="drop-clip">
+                  <path d="M100 8C100 8 22 104 22 160a78 78 0 0 0 156 0C178 104 100 8 100 8Z" />
+                </clipPath>
+                <linearGradient id="drop-grad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stopColor="#ff5a5f" />
+                  <stop offset="1" stopColor="#b3141a" />
+                </linearGradient>
+              </defs>
+              <path d="M100 8C100 8 22 104 22 160a78 78 0 0 0 156 0C178 104 100 8 100 8Z" fill="none" stroke="currentColor" strokeOpacity="0.2" strokeWidth="2" />
+              <g clipPath="url(#drop-clip)">
+                <rect className="drop-fill" x="0" y="0" width="200" height="260" fill="url(#drop-grad)" style={{ transformOrigin: '50% 100%', transformBox: 'fill-box' }} />
+              </g>
+              <polyline
+                className="pulse-line"
+                points="34,170 70,170 82,148 96,196 110,130 122,170 166,170"
+                fill="none"
+                stroke="#fff"
+                strokeWidth="5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeDasharray="600"
+              />
+            </svg>
+            <p className="mt-6 text-center font-display text-3xl">
+              1 donation can save <span className="italic text-blood">up to 3 lives</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function Founder() {
+  return (
+    <section className="bg-linen py-24 sm:py-32">
+      <div className="container-x grid items-center gap-12 lg:grid-cols-12">
+        <Reveal className="lg:col-span-5">
+          <div data-reveal className="relative">
+            <Img src={images.founder} alt="Founder of Team Samarpita" className="aspect-[4/5] rounded-[2rem]" imgClassName="object-top" />
+            <span className="absolute -bottom-5 left-6 rounded-full bg-mint px-5 py-2.5 text-[13px] font-bold uppercase tracking-[0.18em] text-night shadow-lg">Founder</span>
+          </div>
+        </Reveal>
+        <div className="lg:col-span-6 lg:col-start-7">
+          <span className="eyebrow">The heart of Samarpita</span>
+          <SplitHeading lines={['Led with *seva*,', 'driven by people.']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
+          <Reveal>
+            <p data-reveal className="mt-6 text-lg leading-relaxed text-muted">
+              Team Samarpita was founded with one simple belief: anyone who reaches out for help should never be turned away. Under our founder’s guidance, a group of young volunteers from across Odisha now works together on education, health, blood donation and relief.
+            </p>
+            <div data-reveal className="mt-10 flex flex-wrap gap-3">
+              <Button to="/about">Meet the team</Button>
+              <Button to="/contact" variant="outline" icon={false}>Talk to us</Button>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function OdiaBand() {
+  const ref = useRef(null)
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.band-odia', { xPercent: 10 }, {
+        xPercent: -25,
         ease: 'none',
         scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
-      })
-      gsap.from(ref.current, {
-        clipPath: 'inset(8% 6% 8% 6% round 48px)',
-        ease: 'none',
-        scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'top 30%', scrub: true },
       })
     }, ref)
     return () => ctx.revert()
   }, [])
   return (
-    <section ref={ref} className="relative h-[80vh] min-h-[520px] overflow-hidden bg-ink" style={{ clipPath: 'inset(0% 0% 0% 0% round 0px)' }}>
-      <div className="band-img absolute inset-[-15%_0]">
-        <Img src={images.community} alt="Community gathering" className="h-full w-full" imgClassName="opacity-60" />
+    <section ref={ref} className="theme-dark relative overflow-hidden bg-cream py-24 sm:py-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(43,217,138,0.18),transparent_60%)]" />
+      <div className="band-odia pointer-events-none whitespace-nowrap leading-[1.15] text-brand/20">
+        <span className="odia-callig text-[34vw] lg:text-[26rem]">{site.odia} {site.odia}</span>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/30 to-transparent" />
-      <div className="container-x relative flex h-full flex-col justify-end pb-16 text-cream sm:pb-24">
-        <Quotes size={48} weight="fill" className="text-saffron" />
+      <div className="container-x relative -mt-[12vw] lg:-mt-40">
+        <Quotes size={48} weight="fill" className="text-brand" />
         <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-6 text-[clamp(2.75rem,6.5vw,6rem)]" />
-        <p className="mt-6 text-cream/60">— The spirit of Samarpita</p>
+        <p className="mt-6 text-muted">— The spirit of Team Samarpita</p>
       </div>
     </section>
   )
 }
+
+const storyIcons = [BookOpenText, BowlFood, HandHeart]
 
 function Stories() {
   return (
@@ -263,20 +386,26 @@ function Stories() {
         </div>
         <Button to="/about" variant="outline">Our journey</Button>
       </div>
-      <Reveal className="mt-16 grid gap-8 md:grid-cols-3" stagger={0.12}>
-        {stories.map((s, i) => (
-          <article data-reveal key={s.title} className="group cursor-pointer">
-            <div className="overflow-hidden rounded-[1.75rem]">
-              <Img src={images.stories[i]} alt={s.title} className="aspect-[4/5]" imgClassName="transition-transform duration-[1.2s] ease-[var(--ease-premium)] group-hover:scale-110" />
-            </div>
-            <span className="mt-6 inline-block rounded-full bg-saffron-soft px-3 py-1 text-[12px] font-semibold text-saffron">{s.tag}</span>
-            <h3 className="mt-4 font-display text-[28px] leading-tight">{s.title}</h3>
-            <p className="mt-2 text-[15px] text-muted">{s.text}</p>
-            <span className="mt-4 inline-flex items-center gap-2 text-[14px] font-semibold">
-              Read more <ArrowRight className="transition-transform group-hover:translate-x-1" />
-            </span>
-          </article>
-        ))}
+      <Reveal className="mt-16 grid gap-6 md:grid-cols-3" stagger={0.12}>
+        {stories.map((s, i) => {
+          const Icon = storyIcons[i]
+          return (
+            <article data-reveal key={s.title} className="group flex flex-col rounded-[1.75rem] border border-line bg-linen p-3 transition-colors hover:border-brand">
+              <div className="relative grid aspect-[5/4] place-items-center overflow-hidden rounded-[1.4rem] bg-brand-soft">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(43,217,138,0.35),transparent_60%)]" />
+                <Icon size={88} weight="duotone" className="relative text-brand transition-transform duration-700 ease-[var(--ease-premium)] group-hover:scale-110 group-hover:-rotate-6" />
+              </div>
+              <div className="flex flex-1 flex-col p-4">
+                <span className="w-fit rounded-full bg-brand-soft px-3 py-1 text-[12px] font-semibold text-brand">{s.tag}</span>
+                <h3 className="mt-4 font-display text-[28px] leading-tight">{s.title}</h3>
+                <p className="mt-2 text-[15px] text-muted">{s.text}</p>
+                <span className="mt-auto inline-flex items-center gap-2 pt-5 text-[14px] font-semibold">
+                  Read more <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </article>
+          )
+        })}
       </Reveal>
     </section>
   )
@@ -311,7 +440,7 @@ function Testimonials() {
               >
                 <blockquote className="font-display text-[clamp(1.9rem,3.8vw,3.25rem)] leading-[1.12]">“{t.quote}”</blockquote>
                 <figcaption className="mt-8 flex items-center justify-center gap-3">
-                  <span className="grid h-12 w-12 place-items-center rounded-full bg-forest font-semibold text-cream">
+                  <span className="grid h-12 w-12 place-items-center rounded-full bg-mint font-semibold text-night">
                     {t.name.split(' ').map((n) => n[0]).join('')}
                   </span>
                   <span className="text-left text-[14px]"><b className="block">{t.name}</b><span className="text-muted">{t.place}</span></span>
@@ -323,7 +452,7 @@ function Testimonials() {
             <button onClick={() => go(-1)} aria-label="Previous" className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 transition-colors hover:bg-ink hover:text-cream"><ArrowLeft /></button>
             <div className="flex gap-2">
               {testimonials.map((_, k) => (
-                <span key={k} className={`h-1.5 rounded-full transition-all duration-500 ${k === i ? 'w-8 bg-saffron' : 'w-1.5 bg-ink/20'}`} />
+                <span key={k} className={`h-1.5 rounded-full transition-all duration-500 ${k === i ? 'w-8 bg-brand' : 'w-1.5 bg-ink/20'}`} />
               ))}
             </div>
             <button onClick={() => go(1)} aria-label="Next" className="grid h-12 w-12 place-items-center rounded-full border border-ink/15 transition-colors hover:bg-ink hover:text-cream"><ArrowRight /></button>
@@ -338,13 +467,15 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <div className="border-y border-line bg-ink py-6 text-cream">
-        <Marquee items={['Education', 'Healthcare', 'Women Empowerment', 'Elderly Care', 'Food & Relief', 'Legal Guidance']} />
+      <div className="theme-dark border-y border-line bg-cream py-6">
+        <Marquee items={['Education', 'Healthcare', 'Blood Donation', 'Women Empowerment', 'Elderly Care', 'Food & Relief']} />
       </div>
       <Statement />
       <Services />
       <Process />
-      <ParallaxBand />
+      <BloodBand />
+      <Founder />
+      <OdiaBand />
       <Stories />
       <Testimonials />
       <CTABand />

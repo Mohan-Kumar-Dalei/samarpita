@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Support from './pages/Support'
 import Contact from './pages/Contact'
+import BloodDonation from './pages/BloodDonation'
 import { PrivacyPolicy, Terms } from './pages/Legal'
 import NotFound from './pages/NotFound'
 import { useLenis, scrollToTop } from './lib/lenis'
@@ -18,13 +19,13 @@ function Page({ children }) {
     <motion.div className="relative">
       {/* Curtain that wipes up on enter and down on exit */}
       <motion.div
-        className="pointer-events-none fixed inset-0 z-[60] origin-top bg-ink"
+        className="pointer-events-none fixed inset-0 z-[60] origin-top bg-night"
         initial={{ scaleY: 1 }}
         animate={{ scaleY: 0, transition: { duration: 0.8, ease, delay: 0.1 } }}
         exit={{ scaleY: 0 }}
       />
       <motion.div
-        className="pointer-events-none fixed inset-0 z-[60] origin-bottom bg-ink"
+        className="pointer-events-none fixed inset-0 z-[60] origin-bottom bg-night"
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 0 }}
         exit={{ scaleY: 1, transition: { duration: 0.6, ease } }}
@@ -58,6 +59,7 @@ export default function App() {
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Page><Home /></Page>} />
           <Route path="/about" element={<Page><About /></Page>} />
+          <Route path="/blood-donation" element={<Page><BloodDonation /></Page>} />
           <Route path="/support" element={<Page><Support /></Page>} />
           <Route path="/contact" element={<Page><Contact /></Page>} />
           <Route path="/privacy-policy" element={<Page><PrivacyPolicy /></Page>} />

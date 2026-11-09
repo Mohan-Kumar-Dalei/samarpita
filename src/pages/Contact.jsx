@@ -8,10 +8,7 @@ import Button from '../components/Button'
 import Accordion from '../components/Accordion'
 import SplitHeading from '../components/SplitHeading'
 import { site } from '../data/site'
-
-// Messages are delivered to site.email through FormSubmit (https://formsubmit.co).
-// The first submission sends a one-time activation mail to that inbox — confirm it once.
-const ENDPOINT = `https://formsubmit.co/ajax/${site.email}`
+import { sendForm } from '../lib/mail'
 
 const categories = ['Education', 'Health', 'Financial', 'Family / Women issue', 'Elderly care', 'Legal help', 'Other']
 
@@ -26,7 +23,7 @@ function InfoCard({ icon: Icon, title, children, href }) {
   const Tag = href ? 'a' : 'div'
   return (
     <Tag href={href} data-reveal className="group flex gap-4 rounded-2xl border border-line bg-linen p-5 transition-colors hover:border-ink">
-      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-saffron-soft text-saffron transition-colors group-hover:bg-saffron group-hover:text-white">
+      <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand transition-colors group-hover:bg-mint group-hover:text-night">
         <Icon size={20} weight="duotone" />
       </span>
       <span>
@@ -45,20 +42,18 @@ function ProblemForm() {
   const onSubmit = async (e) => {
     e.preventDefault()
     const form = e.currentTarget
-    const data = new FormData(form)
-    data.append('urgency', urgency)
-    data.append('_subject', `[${urgency}] New problem: ${data.get('subject')}`)
-    data.append('_template', 'table')
-    data.append('_captcha', 'false')
-    // Attachments are kept local; mention them in the mail so the team can follow up
-    const file = data.get('attachment')
-    data.delete('attachment')
-    if (file && file.name) data.append('attachment_note', `User has a file to share: ${file.name}`)
-
+    const data = Object.fromEntries(new FormData(form))
+    // Attachments are not uploaded; the mail notes the file name so the team can ask for it
+    const file = data.attachment
+    delete data.attachment
     setStatus('sending')
     try {
-      const res = await fetch(ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-      if (!res.ok) throw new Error('Request failed')
+      await sendForm({
+        ...data,
+        urgency,
+        attachment_note: file && file.name ? `User has a file to share: ${file.name}` : '',
+        _subject: `[${urgency}] New problem: ${data.subject}`,
+      })
       setStatus('sent')
       form.reset()
       setFileName('')
@@ -80,7 +75,7 @@ function ProblemForm() {
             className="flex min-h-[560px] flex-col items-center justify-center text-center"
           >
             <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', delay: 0.2 }}>
-              <CheckCircle size={88} weight="duotone" className="text-saffron" />
+              <CheckCircle size={88} weight="duotone" className="text-brand" />
             </motion.span>
             <h3 className="mt-8 font-display text-5xl">Thank you!</h3>
             <p className="mt-4 max-w-sm leading-relaxed text-muted">Your message has been sent. Our team will contact you within 24–48 hours.</p>
@@ -123,11 +118,11 @@ function ProblemForm() {
                     {urgency === u && (
                       <motion.span
                         layoutId="urgency"
-                        className={`absolute inset-0 -z-10 rounded-xl ${u === 'Urgent' ? 'bg-red-600' : 'bg-ink'}`}
+                        className={`absolute inset-0 -z-10 rounded-xl ${u === 'Urgent' ? 'bg-blood' : 'bg-ink'}`}
                         transition={{ type: 'spring', stiffness: 400, damping: 34 }}
                       />
                     )}
-                    <span className={urgency === u ? 'text-white' : 'text-ink/60'}>{u}</span>
+                    <span className={urgency === u ? (u === 'Urgent' ? 'text-white' : 'text-cream') : 'text-ink/60'}>{u}</span>
                   </button>
                 ))}
               </div>
@@ -142,7 +137,7 @@ function ProblemForm() {
             </div>
             <div className="sm:col-span-2">
               <label className="flex cursor-pointer items-center gap-4 rounded-2xl border border-dashed border-line bg-linen px-5 py-4 transition-colors hover:border-ink">
-                <Paperclip size={22} className="text-saffron" />
+                <Paperclip size={22} className="text-brand" />
                 <span className="text-[14px]">
                   <b>{fileName || 'Attach documents or photos'}</b>
                   <span className="block text-muted">Optional · PDF, JPG or PNG</span>
@@ -151,14 +146,14 @@ function ProblemForm() {
               </label>
             </div>
             <label className="flex items-start gap-3 text-[14px] text-muted sm:col-span-2">
-              <input type="checkbox" required className="mt-1 h-4 w-4 accent-saffron" />
+              <input type="checkbox" required className="mt-1 h-4 w-4 accent-[#0e9f5e]" />
               <span>
                 I agree to the <Link to="/privacy-policy" className="font-semibold text-ink underline underline-offset-2">Privacy Policy</Link> and{' '}
                 <Link to="/terms" className="font-semibold text-ink underline underline-offset-2">Terms &amp; Conditions</Link>.
               </span>
             </label>
             {status === 'error' && (
-              <p className="flex items-center gap-2 rounded-xl bg-red-50 px-4 py-3 text-[14px] text-red-700 sm:col-span-2">
+              <p className="flex items-center gap-2 rounded-xl bg-blood/10 px-4 py-3 text-[14px] text-blood sm:col-span-2">
                 <WarningCircle size={18} /> Something went wrong. Please try again or email us at {site.email}.
               </p>
             )}
@@ -196,24 +191,24 @@ export default function Contact() {
           <Reveal className="space-y-3 lg:col-span-4" stagger={0.06}>
             <a
               data-reveal
-              href={`tel:${site.helpline.replace(/\s/g, '')}`}
-              className="block overflow-hidden rounded-2xl bg-red-600 p-6 text-white"
+              href={`tel:${site.phoneRaw}`}
+              className="block overflow-hidden rounded-2xl bg-blood p-6 text-white"
             >
               <span className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.18em] text-white/80">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-white" />
                 </span>
-                Emergency helpline · 24×7
+                Urgent help · Call us
               </span>
               <span className="mt-4 flex items-center gap-3 font-display text-4xl">
-                <Siren size={32} weight="duotone" /> {site.helpline}
+                <Siren size={32} weight="duotone" /> {site.phone}
               </span>
             </a>
             <InfoCard icon={MapPin} title="Office">{site.address}</InfoCard>
-            <InfoCard icon={Phone} title="Phone" href={`tel:${site.phone}`}>{site.phone}</InfoCard>
+            <InfoCard icon={Phone} title="Phone" href={`tel:${site.phoneRaw}`}>{site.phone}</InfoCard>
             <InfoCard icon={EnvelopeSimple} title="Email" href={`mailto:${site.email}`}>{site.email}</InfoCard>
-            <InfoCard icon={WhatsappLogo} title="WhatsApp" href={site.socials.whatsapp}>{site.whatsapp}</InfoCard>
+            <InfoCard icon={WhatsappLogo} title="WhatsApp" href={site.whatsappLink}>{site.whatsapp}</InfoCard>
             <InfoCard icon={Clock} title="Working hours">{site.hours}</InfoCard>
           </Reveal>
         </div>
@@ -223,8 +218,8 @@ export default function Contact() {
         <div className="overflow-hidden rounded-[2rem] border border-line">
           <iframe
             title="Samarpita office location"
-            src="https://www.google.com/maps?q=Bhubaneswar,Odisha&output=embed"
-            className="h-[420px] w-full grayscale-[0.6] contrast-[1.05]"
+            src="https://www.google.com/maps?q=Odisha,India&output=embed"
+            className="h-[420px] w-full grayscale-[0.6] contrast-[1.05] dark:invert-[0.9] dark:hue-rotate-180"
             loading="lazy"
           />
         </div>

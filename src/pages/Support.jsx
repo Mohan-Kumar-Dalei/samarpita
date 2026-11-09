@@ -6,8 +6,7 @@ import PageHero from '../components/PageHero'
 import SplitHeading from '../components/SplitHeading'
 import Reveal from '../components/Reveal'
 import Button from '../components/Button'
-import Img from '../components/Img'
-import { images } from '../data/site'
+import { sendForm } from '../lib/mail'
 import { getLenis } from '../lib/lenis'
 
 const ways = [
@@ -39,7 +38,7 @@ function Ways() {
               getLenis()?.scrollTo(href, { offset: -100 })
             }}
             className={`group flex min-h-[340px] flex-col rounded-[2rem] p-9 transition-transform duration-500 hover:-translate-y-2 ${
-              i === 0 ? 'bg-saffron text-white' : i === 1 ? 'bg-forest text-cream' : 'border border-line bg-linen'
+              i === 0 ? 'bg-mint text-night' : i === 1 ? 'theme-dark bg-forest ring-1 ring-line' : 'border border-line bg-linen'
             }`}
           >
             <Icon size={44} weight="duotone" />
@@ -60,7 +59,7 @@ function CopyRow({ label, value }) {
   const [copied, setCopied] = useState(false)
   return (
     <div className="flex items-center justify-between gap-4 border-b border-cream/10 py-3 last:border-0">
-      <span className="text-[13px] text-cream/50">{label}</span>
+      <span className="text-[13px] text-muted">{label}</span>
       <button
         onClick={() => {
           navigator.clipboard?.writeText(value)
@@ -70,7 +69,7 @@ function CopyRow({ label, value }) {
         className="flex items-center gap-2 text-right font-medium"
       >
         {value}
-        {copied ? <Check size={14} className="text-saffron" /> : <Copy size={14} className="text-cream/40" />}
+        {copied ? <Check size={14} className="text-brand" /> : <Copy size={14} className="text-muted" />}
       </button>
     </div>
   )
@@ -91,7 +90,6 @@ function Donate() {
           <p className="mt-6 max-w-md leading-relaxed text-muted">
             We publish a yearly report of every donation and how it was used. Donations are eligible for tax benefits under Section 80G.
           </p>
-          <Img src={images.donate} alt="Donation drive" className="mt-10 hidden aspect-[4/3] rounded-[1.75rem] lg:block" />
         </div>
 
         <Reveal className="lg:col-span-7">
@@ -120,7 +118,7 @@ function Donate() {
                     setCustom('')
                   }}
                   className={`rounded-2xl border py-4 text-lg font-semibold transition-all duration-300 ${
-                    !custom && amount === a ? 'border-saffron bg-saffron text-white shadow-lg shadow-saffron/30' : 'border-line hover:border-ink'
+                    !custom && amount === a ? 'border-mint bg-mint text-night shadow-lg shadow-mint/30' : 'border-line hover:border-ink'
                   }`}
                 >
                   ₹{a.toLocaleString('en-IN')}
@@ -169,8 +167,8 @@ function Donate() {
                   <p className="mt-1 text-[13px] text-muted">samarpita@upi</p>
                 </div>
               </div>
-              <div className="rounded-2xl bg-ink p-4 text-[13px] text-cream">
-                <p className="mb-1 flex items-center gap-2 font-semibold"><Bank size={16} className="text-saffron" /> Bank transfer</p>
+              <div className="theme-dark rounded-2xl bg-cream p-4 text-[13px] ring-1 ring-line">
+                <p className="mb-1 flex items-center gap-2 font-semibold"><Bank size={16} className="text-brand" /> Bank transfer</p>
                 <CopyRow label="A/c name" value="Samarpita Trust" />
                 <CopyRow label="A/c no." value="1234 5678 9012" />
                 <CopyRow label="IFSC" value="SBIN0001234" />
@@ -213,7 +211,7 @@ function Allocation() {
               </div>
               <div className="h-3 overflow-hidden rounded-full bg-sand">
                 <div
-                  className={`alloc-bar h-full origin-left rounded-full ${['bg-saffron', 'bg-forest', 'bg-moss', 'bg-ink'][i]}`}
+                  className={`alloc-bar h-full origin-left rounded-full ${['bg-mint', 'bg-brand', 'bg-moss', 'bg-ink'][i]}`}
                   style={{ width: `${a.pct}%` }}
                 />
               </div>
@@ -226,60 +224,70 @@ function Allocation() {
 }
 
 function VolunteerForm() {
-  const [done, setDone] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const data = Object.fromEntries(new FormData(form))
+    setStatus('sending')
+    try {
+      await sendForm({ ...data, _subject: `[Volunteer] ${data.name} — ${data.interest || 'General'}` })
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
   return (
     <section id="volunteer" className="container-x pb-24 sm:pb-32">
-      <div className="grain relative overflow-hidden rounded-[2rem] bg-forest p-6 text-cream sm:rounded-[3rem] sm:p-14">
-        <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-saffron/30 blur-3xl" />
+      <div className="theme-dark grain relative overflow-hidden rounded-[2rem] bg-forest p-6 ring-1 ring-line sm:rounded-[3rem] sm:p-14">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-brand/25 blur-3xl" />
         <div className="relative grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
-            <span className="eyebrow !text-cream/60">Volunteer with us</span>
+            <span className="eyebrow">Volunteer with us</span>
             <SplitHeading lines={['Lend a hand,', 'change a *life*']} className="mt-5 text-[clamp(2.5rem,5vw,4.5rem)]" />
-            <p className="mt-6 max-w-sm leading-relaxed text-cream/65">Fill in your details and our volunteer lead will contact you about upcoming programs near you.</p>
+            <p className="mt-6 max-w-sm leading-relaxed text-muted">Fill in your details and our team will contact you about upcoming programs near you.</p>
           </div>
           <div className="lg:col-span-7">
             <AnimatePresence mode="wait">
-              {done ? (
+              {status === 'sent' ? (
                 <motion.div
                   key="done"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="flex h-full flex-col items-center justify-center rounded-3xl bg-cream/5 p-10 text-center"
+                  className="flex h-full flex-col items-center justify-center rounded-3xl bg-linen p-10 text-center"
                 >
-                  <CheckCircle size={64} weight="duotone" className="text-saffron" />
+                  <CheckCircle size={64} weight="duotone" className="text-brand" />
                   <h3 className="mt-6 font-display text-4xl">Welcome to the family!</h3>
-                  <p className="mt-3 text-cream/65">We’ll get in touch with you very soon.</p>
+                  <p className="mt-3 text-muted">We’ll get in touch with you very soon.</p>
                 </motion.div>
               ) : (
-                <motion.form
-                  key="form"
-                  exit={{ opacity: 0 }}
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    setDone(true)
-                  }}
-                  className="grid gap-4 sm:grid-cols-2 [&_.field]:border-cream/15 [&_.field]:bg-cream/5 [&_.field]:text-cream [&_.field]:placeholder:text-cream/40 [&_.field:focus]:bg-cream/10 [&_.field:focus]:border-saffron"
-                >
-                  <input required className="field" placeholder="Full name" />
-                  <input required type="email" className="field" placeholder="Email" />
-                  <input required type="tel" className="field" placeholder="Phone" />
-                  <input className="field" placeholder="City" />
-                  <select className="field" defaultValue="">
+                <motion.form key="form" exit={{ opacity: 0 }} onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
+                  <input name="name" required className="field" placeholder="Full name" />
+                  <input name="email" required type="email" className="field" placeholder="Email" />
+                  <input name="phone" required type="tel" className="field" placeholder="Phone" />
+                  <input name="city" className="field" placeholder="City / Village" />
+                  <select name="interest" className="field" defaultValue="">
                     <option value="" disabled>Area of interest</option>
                     <option>Teaching</option>
                     <option>Health camps</option>
+                    <option>Blood donation camps</option>
                     <option>Relief work</option>
                     <option>Women’s support</option>
                     <option>CSR partnership</option>
                   </select>
-                  <select className="field" defaultValue="">
+                  <select name="availability" className="field" defaultValue="">
                     <option value="" disabled>Availability</option>
                     <option>Weekdays</option>
                     <option>Weekends</option>
                     <option>Flexible</option>
                   </select>
+                  {status === 'error' && (
+                    <p className="text-[14px] text-blood sm:col-span-2">Something went wrong. Please try again or call us.</p>
+                  )}
                   <div className="sm:col-span-2">
-                    <Button type="submit" variant="accent">Join now</Button>
+                    <Button type="submit" variant="accent" disabled={status === 'sending'}>
+                      {status === 'sending' ? 'Sending…' : 'Join now'}
+                    </Button>
                   </div>
                 </motion.form>
               )}
@@ -304,7 +312,7 @@ function Trust() {
         <div className="flex flex-wrap justify-center gap-3">
           {badges.map(({ icon: Icon, label }) => (
             <span key={label} className="inline-flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-[14px] font-semibold">
-              <Icon size={18} className="text-saffron" weight="duotone" /> {label}
+              <Icon size={18} className="text-brand" weight="duotone" /> {label}
             </span>
           ))}
         </div>

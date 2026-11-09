@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom'
 import '@fontsource/instrument-serif/400.css'
 import '@fontsource/instrument-serif/400-italic.css'
 import '@fontsource-variable/manrope'
-import '@fontsource/noto-serif-oriya/500.css'
+import '@fontsource-variable/noto-serif-oriya'
 import './index.css'
 import App from './App.jsx'
 

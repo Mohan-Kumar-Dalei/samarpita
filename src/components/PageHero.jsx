@@ -7,7 +7,7 @@ import { motion } from 'framer-motion'
 export default function PageHero({ eyebrow, crumb, lines, text, children }) {
   return (
     <section className="relative overflow-hidden pb-16 pt-36 sm:pb-24 sm:pt-44">
-      <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-saffron-soft/60 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 -top-40 h-[520px] w-[520px] rounded-full bg-brand/15 blur-3xl" />
       <div className="container-x relative">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
