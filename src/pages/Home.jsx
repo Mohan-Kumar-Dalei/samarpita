@@ -15,7 +15,7 @@ import {
   HandHeart,
   ChatCircleText,
 } from '@phosphor-icons/react'
-import { gsap } from '../lib/gsap'
+import { gsap, ScrollTrigger } from '../lib/gsap'
 import Button from '../components/Button'
 import SplitHeading from '../components/SplitHeading'
 import Reveal from '../components/Reveal'
@@ -341,26 +341,48 @@ function Founder() {
 
 function OdiaBand() {
   const ref = useRef(null)
+  const track = useRef(null)
   useLayoutEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const ctx = gsap.context(() => {
-      // The two words drift from right to left while the section scrolls past, centred at mid-scroll
-      gsap.fromTo('.band-odia', { xPercent: 12 }, {
-        xPercent: -12,
-        ease: 'none',
-        scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
+      // Endless marquee: the track holds two identical halves, so moving it by -50% loops seamlessly
+      const loop = gsap.to(track.current, { xPercent: -50, ease: 'none', duration: 28, repeat: -1 })
+      loop.totalTime(loop.duration() * 50) // start far from 0 so it can also run backwards
+      // Scrolling speeds the marquee up; scrolling up reverses it, then it settles back to normal speed
+      ScrollTrigger.create({
+        trigger: ref.current,
+        start: 'top bottom',
+        end: 'bottom top',
+        onUpdate: (self) => {
+          const boost = Math.min(Math.max(Math.abs(self.getVelocity()) / 250, 1), 7)
+          gsap.to(loop, {
+            timeScale: self.direction * boost,
+            duration: 0.25,
+            overwrite: true,
+            onComplete: () => gsap.to(loop, { timeScale: self.direction, duration: 1.2, ease: 'power2.out' }),
+          })
+        },
       })
     }, ref)
     return () => ctx.revert()
   }, [])
+  const half = Array.from({ length: 4 })
   return (
     <section ref={ref} className="theme-dark relative overflow-hidden bg-cream py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(70,201,28,0.18),transparent_60%)]" />
-      <div className="flex justify-center">
-        <div className="band-odia pointer-events-none select-none whitespace-nowrap leading-none text-brand opacity-25">
-          <OdiaWord repeat={2} className="text-[clamp(5.5rem,20vw,17rem)]" />
+      <div className="pointer-events-none select-none overflow-hidden">
+        <div ref={track} className="flex w-max items-center whitespace-nowrap will-change-transform">
+          {[0, 1].map((h) =>
+            half.map((_, i) => (
+              <span key={`${h}-${i}`} className="flex items-center" aria-hidden={h === 1 || i > 0}>
+                <OdiaWord className="px-[0.18em] text-[clamp(5rem,15vw,13rem)] leading-none text-brand opacity-25" />
+                <span className="mx-[2vw] text-[clamp(1.5rem,3vw,2.5rem)] text-gold opacity-60">✦</span>
+              </span>
+            )),
+          )}
         </div>
       </div>
-      <div className="container-x relative -mt-[clamp(2.5rem,7vw,6rem)] flex flex-col items-center text-center">
+      <div className="container-x relative -mt-[clamp(2rem,5vw,4.5rem)] flex flex-col items-center text-center">
         <Quotes size={44} weight="fill" className="text-gold" />
         <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]" />
         <p className="mt-6 text-muted">The spirit of Samarpita</p>
