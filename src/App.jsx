@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import Navbar from './components/Navbar'
@@ -11,6 +12,9 @@ import { PrivacyPolicy, Terms } from './pages/Legal'
 import NotFound from './pages/NotFound'
 import { useLenis, scrollToTop } from './lib/lenis'
 import { ScrollTrigger } from './lib/gsap'
+
+// The admin panel is only for the team, so it loads separately from the public site
+const Admin = lazy(() => import('./pages/Admin'))
 
 const ease = [0.76, 0, 0.24, 1]
 
@@ -62,6 +66,7 @@ export default function App() {
           <Route path="/blood-donation" element={<Page><BloodDonation /></Page>} />
           <Route path="/support" element={<Page><Support /></Page>} />
           <Route path="/contact" element={<Page><Contact /></Page>} />
+          <Route path="/admin" element={<Page><Suspense fallback={<section className="min-h-[80vh]" />}><Admin /></Suspense></Page>} />
           <Route path="/privacy-policy" element={<Page><PrivacyPolicy /></Page>} />
           <Route path="/terms" element={<Page><Terms /></Page>} />
           <Route path="*" element={<Page><NotFound /></Page>} />

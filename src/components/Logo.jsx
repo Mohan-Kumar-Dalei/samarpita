@@ -1,22 +1,27 @@
 import { Link } from 'react-router-dom'
 
-export function LogoMark({ className = 'h-9 w-9' }) {
+// Files in /public need the site's base path (the site is served from /samarpita/)
+export const asset = (path) => `${import.meta.env.BASE_URL}${path}`
+
+export function LogoMark({ className = 'h-11 w-11', size = 96 }) {
   return (
-    <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
-      <rect width="64" height="64" rx="18" fill="#070A08" />
-      <path d="M32 13c4.5 6 6.5 12.5 6.5 19S36.5 45 32 51c-4.5-6-6.5-12.5-6.5-19S27.5 19 32 13Z" fill="#2BD98A" />
-      <path d="M32 51c-8.5-2-14.5-8.5-16.5-18.5 8.5 0 14.5 4.5 16.5 10.5 2-6 8-10.5 16.5-10.5C46.5 42.5 40.5 49 32 51Z" fill="#EAF2ED" />
-    </svg>
+    <img
+      src={asset(`brand/logo-${size}.webp`)}
+      alt="Samarpita logo"
+      width={size}
+      height={size}
+      className={`rounded-full bg-white object-contain shadow-sm ring-1 ring-black/5 ${className}`}
+    />
   )
 }
 
 export default function Logo() {
   return (
-    <Link to="/" className="group flex items-center gap-3 text-ink" aria-label="Team Samarpita home">
-      <LogoMark className="h-10 w-10 ring-1 ring-line rounded-[12px] transition-transform duration-700 ease-[var(--ease-premium)] group-hover:rotate-[360deg]" />
+    <Link to="/" className="group flex items-center gap-3 text-ink" aria-label="Samarpita home">
+      <LogoMark className="h-11 w-11 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:rotate-[360deg]" />
       <span className="leading-none">
         <span className="block font-display text-[26px] tracking-tight">Samarpita</span>
-        <span className="block text-[10px] font-semibold uppercase tracking-[0.28em] text-muted">Team · Odisha</span>
+        <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-muted">Social Foundation Trust</span>
       </span>
     </Link>
   )

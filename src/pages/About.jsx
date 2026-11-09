@@ -134,48 +134,59 @@ function Values() {
   )
 }
 
-// Horizontal, scroll-driven strip of the areas the team works in
+// Horizontal, scroll-driven strip of the areas the team works in.
+// Uses CSS sticky (not GSAP pinning) so the section never jumps when it locks in place.
 function FocusAreas() {
   const ref = useRef(null)
   const track = useRef(null)
   useLayoutEffect(() => {
     const mm = gsap.matchMedia()
     mm.add('(min-width: 1024px)', () => {
-      const distance = () => track.current.scrollWidth - window.innerWidth + 96
-      gsap.to(track.current, {
+      const distance = () => Math.max(0, track.current.scrollWidth - window.innerWidth + 96)
+      const setHeight = () => {
+        ref.current.style.height = `${window.innerHeight + distance()}px`
+      }
+      setHeight()
+      const tween = gsap.to(track.current, {
         x: () => -distance(),
         ease: 'none',
         scrollTrigger: {
           trigger: ref.current,
           start: 'top top',
-          end: () => '+=' + distance(),
-          pin: true,
-          anticipatePin: 1,
-          scrub: 1,
+          end: 'bottom bottom',
+          scrub: 0.6,
           invalidateOnRefresh: true,
+          onRefreshInit: setHeight,
         },
       })
+      return () => {
+        tween.scrollTrigger?.kill()
+        tween.kill()
+        ref.current && (ref.current.style.height = '')
+      }
     })
     return () => mm.revert()
   }, [])
   const areas = [{ icon: Drop, title: 'Blood Donation', text: 'A growing registry of donors we call whenever a patient needs blood.' }, ...services]
   return (
-    <section ref={ref} className="theme-dark overflow-hidden bg-cream py-24 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:py-0">
-      <div className="container-x">
-        <span className="eyebrow">Where we work</span>
-        <SplitHeading lines={['Our areas of *seva*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
-      </div>
-      <div ref={track} className="mt-14 flex flex-col gap-6 px-5 sm:px-8 lg:w-max lg:flex-row lg:px-12">
-        {areas.map(({ icon: Icon, title, text }, i) => (
-          <div key={title} className="relative w-full shrink-0 rounded-[1.75rem] border border-line bg-linen p-8 lg:w-[400px] lg:p-10">
-            <div className="flex items-start justify-between">
-              <Icon size={48} weight="duotone" className={i === 0 ? 'text-blood' : 'text-brand'} />
-              <span className="font-display text-6xl text-ink/15">{String(i + 1).padStart(2, '0')}</span>
+    <section ref={ref} className="theme-dark relative bg-cream">
+      <div className="py-24 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col lg:justify-center lg:overflow-hidden lg:py-0">
+        <div className="container-x">
+          <span className="eyebrow">Where we work</span>
+          <SplitHeading lines={['Our areas of *seva*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
+        </div>
+        <div ref={track} className="mt-14 flex flex-col gap-6 px-5 will-change-transform sm:px-8 lg:w-max lg:flex-row lg:px-12">
+          {areas.map(({ icon: Icon, title, text }, i) => (
+            <div key={title} className="relative w-full shrink-0 rounded-[1.75rem] border border-line bg-linen p-8 lg:w-[400px] lg:p-10">
+              <div className="flex items-start justify-between">
+                <Icon size={48} weight="duotone" className={i === 0 ? 'text-blood' : 'text-brand'} />
+                <span className="font-display text-6xl text-ink/15">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 className="mt-16 font-display text-4xl">{title}</h3>
+              <p className="mt-3 text-muted">{text}</p>
             </div>
-            <h3 className="mt-16 font-display text-4xl">{title}</h3>
-            <p className="mt-3 text-muted">{text}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   )

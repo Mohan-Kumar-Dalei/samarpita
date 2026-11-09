@@ -9,31 +9,31 @@
   Add `theme-dark` to any section to always render it with the dark palette.
 */
 :root {
-  --c-cream: #f2f5f0;
+  --c-cream: #f5f8f1;
   --c-linen: #ffffff;
-  --c-sand: #e3e9e1;
-  --c-ink: #0a0f0c;
-  --c-muted: #56625b;
-  --c-line: #d3dbd1;
-  --c-brand: #0e9f5e;
-  --c-brand-soft: #d2f1e1;
-  --c-forest: #0b1d15;
-  --c-moss: #1d5a3e;
+  --c-sand: #e7efe0;
+  --c-ink: #0b1a10;
+  --c-muted: #55665a;
+  --c-line: #d6e1cf;
+  --c-brand: #2a8a12;
+  --c-brand-soft: #e2f6d3;
+  --c-forest: #0b3318;
+  --c-moss: #1d6b2a;
   color-scheme: light;
 }
 
 .dark,
 .theme-dark {
-  --c-cream: #070a08;
-  --c-linen: #0f1512;
-  --c-sand: #161e1a;
-  --c-ink: #eaf2ed;
-  --c-muted: #91a198;
-  --c-line: #232d28;
-  --c-brand: #2bd98a;
-  --c-brand-soft: #10281d;
-  --c-forest: #0b1d15;
-  --c-moss: #1d5a3e;
+  --c-cream: #06100a;
+  --c-linen: #0d1a11;
+  --c-sand: #142519;
+  --c-ink: #ecf5e9;
+  --c-muted: #93a897;
+  --c-line: #1f3326;
+  --c-brand: #62d834;
+  --c-brand-soft: #132b17;
+  --c-forest: #0b3318;
+  --c-moss: #1d6b2a;
   color-scheme: dark;
 }
 
@@ -51,8 +51,11 @@
 }
 
 @theme {
-  --color-night: #070a08;
-  --color-mint: #2bd98a;
+  /* Fixed colours taken from the Samarpita logo */
+  --color-night: #06100a;
+  --color-mint: #46c91c;
+  --color-gold: #f7c408;
+  --color-royal: #0a4f9f;
   --color-blood: #e5383b;
 
   --font-display: 'Instrument Serif', ui-serif, Georgia, serif;

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Drop,
@@ -24,6 +24,8 @@ import Button from '../components/Button'
 import Accordion from '../components/Accordion'
 import { site } from '../data/site'
 import { sendForm } from '../lib/mail'
+import { addDonor, listHeroes, isLive } from '../lib/store'
+import ThankYouCard from '../components/ThankYouCard'
 import OdiaWord from '../components/OdiaWord'
 
 const GROUPS = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
@@ -128,6 +130,7 @@ function RegisterForm() {
     lastDonation: '',
     neverDonated: false,
     availability: 'Anytime',
+    showOnWall: true,
   })
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.type === 'checkbox' ? e.target.checked : e.target.value }))
   const { checks, failed, nextDate } = useEligibility({
@@ -142,8 +145,24 @@ function RegisterForm() {
     e.preventDefault()
     if (!form.group || failed) return
     setStatus('sending')
-    try {
-      await sendForm({
+    const lastDonation = form.neverDonated ? 'Never donated' : form.lastDonation
+    const record = {
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      email: form.email.trim(),
+      group: form.group,
+      gender: form.gender,
+      age: form.age,
+      weight: form.weight,
+      district: form.district,
+      area: form.area.trim(),
+      lastDonation,
+      availability: form.availability,
+      showOnWall: form.showOnWall,
+    }
+    // Live: the database is the source of truth and the email is a courtesy notification.
+    // Demo: the email is the only copy the team receives, so it must succeed.
+    const mail = sendForm({
         _subject: `[Blood Donor] ${form.group} — ${form.name} — ${form.district}`,
         'Blood group': form.group,
         Name: form.name,
@@ -154,9 +173,17 @@ function RegisterForm() {
         'Weight (kg)': form.weight,
         District: form.district,
         'Area / Village': form.area,
-        'Last donation': form.neverDonated ? 'Never donated' : form.lastDonation,
+        'Last donation': lastDonation,
         Availability: form.availability,
       })
+    try {
+      if (isLive) {
+        await addDonor(record)
+        mail.catch(() => {})
+      } else {
+        await mail
+        await addDonor(record)
+      }
       setStatus('sent')
     } catch {
       setStatus('error')
@@ -316,6 +343,10 @@ function RegisterForm() {
                       <Link to="/privacy-policy" className="font-semibold text-ink underline underline-offset-2">Privacy Policy</Link>.
                     </span>
                   </label>
+                  <label className="-mt-2 flex items-start gap-3 text-[14px] text-muted sm:col-span-2">
+                    <input type="checkbox" checked={form.showOnWall} onChange={set('showOnWall')} className="mt-1 h-4 w-4 accent-[#e5383b]" />
+                    <span>After I donate, Samarpita may show my name, blood group and district on the Blood Heroes wall.</span>
+                  </label>
 
                   {!form.group && status === 'tried' && (
                     <p className="text-[14px] text-blood sm:col-span-2">Please select your blood group.</p>
@@ -459,6 +490,32 @@ function Eligibility() {
   )
 }
 
+function Heroes() {
+  const [heroes, setHeroes] = useState([])
+  useEffect(() => {
+    listHeroes().then(setHeroes).catch(() => {})
+  }, [])
+  if (!heroes.length) return null
+  return (
+    <section className="container-x pb-24 sm:pb-32">
+      <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+        <div>
+          <span className="eyebrow">Blood heroes</span>
+          <SplitHeading lines={['With love &', '*gratitude*']} className="mt-5 text-[clamp(2.75rem,5.5vw,5rem)]" />
+        </div>
+        <p className="max-w-sm leading-relaxed text-muted">Every name here gave blood through Samarpita and helped save a life. Thank you.</p>
+      </div>
+      <Reveal className="mt-14 grid grid-cols-1 gap-5 min-[480px]:grid-cols-2 lg:grid-cols-4" stagger={0.08}>
+        {heroes.map((h) => (
+          <div data-reveal key={h.id} className="transition-transform duration-500 hover:-translate-y-2">
+            <ThankYouCard compact name={h.name} group={h.group} district={h.district} donatedAt={h.donatedAt} />
+          </div>
+        ))}
+      </Reveal>
+    </section>
+  )
+}
+
 function NeedBlood() {
   return (
     <section className="container-x pb-24 sm:pb-32">
@@ -515,6 +572,7 @@ export default function BloodDonation() {
       <RegisterForm />
       <HowItWorks />
       <Compatibility />
+      <Heroes />
       <Eligibility />
       <NeedBlood />
       <section className="container-x pb-24 sm:pb-36">

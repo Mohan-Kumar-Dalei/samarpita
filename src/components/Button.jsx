@@ -6,7 +6,7 @@ import { getLenis } from '../lib/lenis'
 
 const styles = {
   primary: 'bg-ink text-cream hover:bg-brand hover:text-night',
-  accent: 'bg-mint text-night shadow-[0_10px_30px_-10px_rgba(43,217,138,0.6)] hover:bg-[#4ce6a0]',
+  accent: 'bg-mint text-night shadow-[0_10px_30px_-10px_rgba(70,201,28,0.6)] hover:bg-[#5ad62f]',
   outline: 'border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-cream',
   blood: 'bg-blood text-white shadow-[0_10px_30px_-10px_rgba(229,56,59,0.6)] hover:bg-[#cc2f32]',
 }

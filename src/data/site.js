@@ -14,6 +14,7 @@ import {
 // Contact details shown across the site
 export const site = {
   name: 'Samarpita',
+  fullName: 'Samarpita Social Foundation Trust',
   odia: 'ସମର୍ପିତ',
   tagline: 'Seva hi Samarpan',
   email: 'samarpitateam@gmail.com',
@@ -25,7 +26,7 @@ export const site = {
   hours: 'Mon – Sat, 9:00 AM – 7:00 PM',
   socials: {
     facebook: '#',
-    instagram: '#',
+    instagram: 'https://www.instagram.com/samar.pita2005/',
     youtube: '#',
     x: '#',
     whatsapp: 'https://wa.me/919583463595',
@@ -34,6 +35,12 @@ export const site = {
 
 // Photos are served from ImageKit, which resizes and compresses them on the fly
 const ik = (file, tr = 'w-1600') => `https://ik.imagekit.io/h7wep5nji/samarpita/${file}?tr=${tr},q-80,f-auto`
+// Instagram reels shown on the site — add more reel links here
+export const reels = [
+  'https://www.instagram.com/reel/DfSOLwhRl96/',
+  'https://www.instagram.com/reel/Dfe7U8Lo4B-/',
+]
+
 export const images = {
   team: ik('team-samarpita-group.jpg', 'w-2000'),
   teamSmall: ik('team-samarpita-group.jpg', 'w-1200'),

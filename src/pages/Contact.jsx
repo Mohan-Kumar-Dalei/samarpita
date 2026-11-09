@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { MapPin, Phone, EnvelopeSimple, WhatsappLogo, Clock, Siren, Paperclip, CheckCircle, CircleNotch, WarningCircle } from '@phosphor-icons/react'
+import { MapPin, Phone, EnvelopeSimple, WhatsappLogo, Clock, Siren, Paperclip, CheckCircle, CircleNotch, WarningCircle, Star } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
 import PageHero from '../components/PageHero'
 import Reveal from '../components/Reveal'
@@ -9,6 +9,7 @@ import Accordion from '../components/Accordion'
 import SplitHeading from '../components/SplitHeading'
 import { site } from '../data/site'
 import { sendForm } from '../lib/mail'
+import { addFeedback, isLive } from '../lib/store'
 
 const categories = ['Education', 'Health', 'Financial', 'Family / Women issue', 'Elderly care', 'Legal help', 'Other']
 
@@ -173,6 +174,82 @@ function ProblemForm() {
   )
 }
 
+function FeedbackForm() {
+  const [rating, setRating] = useState(5)
+  const [hover, setHover] = useState(0)
+  const [status, setStatus] = useState('idle')
+  const onSubmit = async (e) => {
+    e.preventDefault()
+    const data = Object.fromEntries(new FormData(e.currentTarget))
+    const fb = { name: data.name.trim(), place: data.place.trim(), rating, message: data.message.trim() }
+    setStatus('sending')
+    const mail = sendForm({ ...fb, rating: `${rating} / 5`, _subject: `[Feedback] ${rating}★ from ${fb.name}` })
+    try {
+      if (isLive) {
+        await addFeedback(fb)
+        mail.catch(() => {})
+      } else {
+        await mail
+        await addFeedback(fb)
+      }
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }
+  return (
+    <section className="container-x pb-24 sm:pb-32">
+      <div className="theme-dark relative overflow-hidden rounded-[2rem] bg-forest p-6 ring-1 ring-line sm:rounded-[3rem] sm:p-14">
+        <div className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-[radial-gradient(closest-side,rgba(247,196,8,0.18),transparent)]" />
+        <div className="relative grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <span className="eyebrow">Feedback</span>
+            <SplitHeading lines={['How did we', '*do*?']} className="mt-5 text-[clamp(2.5rem,5vw,4.5rem)]" />
+            <p className="mt-6 max-w-sm leading-relaxed text-muted">Has Samarpita helped you or someone you know? Your words help us improve and encourage our volunteers.</p>
+          </div>
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              {status === 'sent' ? (
+                <motion.div key="ok" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex h-full flex-col items-center justify-center rounded-3xl bg-linen p-10 text-center">
+                  <CheckCircle size={64} weight="duotone" className="text-brand" />
+                  <h3 className="mt-6 font-display text-4xl">Thank you for your feedback!</h3>
+                </motion.div>
+              ) : (
+                <motion.form key="f" exit={{ opacity: 0 }} onSubmit={onSubmit} className="grid gap-4 sm:grid-cols-2">
+                  <div className="sm:col-span-2">
+                    <span className="label">Your rating</span>
+                    <div className="flex gap-1" onMouseLeave={() => setHover(0)}>
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <button
+                          type="button"
+                          key={n}
+                          onClick={() => setRating(n)}
+                          onMouseEnter={() => setHover(n)}
+                          aria-label={`${n} star${n > 1 ? 's' : ''}`}
+                          className="transition-transform hover:scale-110"
+                        >
+                          <Star size={34} weight={n <= (hover || rating) ? 'fill' : 'regular'} className="text-gold" />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <input name="name" required maxLength={100} className="field" placeholder="Your name" />
+                  <input name="place" maxLength={100} className="field" placeholder="City / Village" />
+                  <textarea name="message" required maxLength={2000} rows={4} className="field resize-none sm:col-span-2" placeholder="Write your feedback…" data-lenis-prevent />
+                  {status === 'error' && <p className="text-[14px] text-blood sm:col-span-2">Something went wrong. Please try again.</p>}
+                  <div className="sm:col-span-2">
+                    <Button type="submit" variant="accent" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send feedback'}</Button>
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function Contact() {
   return (
     <>
@@ -224,6 +301,8 @@ export default function Contact() {
           />
         </div>
       </section>
+
+      <FeedbackForm />
 
       <section className="container-x pb-24 sm:pb-36">
         <div className="grid gap-12 lg:grid-cols-12">
