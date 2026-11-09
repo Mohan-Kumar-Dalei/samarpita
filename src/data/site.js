@@ -37,8 +37,15 @@ export const site = {
 const ik = (file, tr = 'w-1600') => `https://ik.imagekit.io/h7wep5nji/samarpita/${file}?tr=${tr},q-80,f-auto`
 // Instagram reels shown on the site — add more reel links here
 export const reels = [
-  'https://www.instagram.com/reel/DfSOLwhRl96/',
+  'https://www.instagram.com/reel/DJxr4qETjtV/',
+  'https://www.instagram.com/reel/DfgV5IFKXqR/',
   'https://www.instagram.com/reel/Dfe7U8Lo4B-/',
+  'https://www.instagram.com/reel/DfSOLwhRl96/',
+  'https://www.instagram.com/reel/DfLq_CJyEjO/',
+  'https://www.instagram.com/reel/DdGaVIjRz_e/',
+  'https://www.instagram.com/reel/Da4veAehJBk/',
+  'https://www.instagram.com/reel/DZ2EVRuI7Qr/',
+  'https://www.instagram.com/reel/DZq9NRAxJcg/',
 ]
 
 export const images = {
@@ -56,9 +63,9 @@ export const nav = [
 ]
 
 export const stats = [
-  { value: 5000, suffix: '+', label: 'People helped' },
-  { value: 150, suffix: '+', label: 'Active volunteers' },
-  { value: 60, suffix: '+', label: 'Villages reached' },
+  { value: 3000, suffix: '+', label: 'People helped' },
+  { value: 50, suffix: '+', label: 'Active volunteers' },
+  { value: 20, suffix: '+', label: 'Villages reached' },
   { value: 8, suffix: '', label: 'Years of seva' },
 ]
 

@@ -35,8 +35,14 @@ const ThankYouCard = forwardRef(function ThankYouCard({ name, group, district, d
 
       <div className="relative flex h-full flex-col items-center justify-between text-center">
         <div className="flex flex-col items-center">
-          {!compact && <LogoMark size={96} className="mb-1 h-12 w-12" />}
-          <Lotus id={`${id}l`} className={compact ? 'w-14' : 'w-24'} />
+          <div className="relative">
+            <div className={`absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgba(247,196,8,0.45),transparent)] ${compact ? 'scale-[1.7]' : 'scale-[1.8]'}`} />
+            <LogoMark
+              size={compact ? 96 : 192}
+              className={`relative shadow-[0_0_0_2px_#f7c408,0_0_0_5px_rgba(247,196,8,0.25)] ${compact ? 'h-12 w-12' : 'h-20 w-20'}`}
+            />
+          </div>
+          <Lotus id={`${id}l`} className={compact ? '-mt-1 w-10' : '-mt-1 w-16'} />
           <p className={`mt-1 font-semibold uppercase tracking-[0.32em] text-[#f7c408]/90 ${compact ? 'text-[8px]' : 'text-[11px]'}`}>
             With heartfelt gratitude
           </p>

@@ -21,7 +21,7 @@ export default function Logo() {
       <LogoMark className="h-11 w-11 transition-transform duration-700 ease-[var(--ease-premium)] group-hover:rotate-[360deg]" />
       <span className="leading-none">
         <span className="block font-display text-[26px] tracking-tight">Samarpita</span>
-        <span className="block text-[10px] font-semibold uppercase tracking-[0.24em] text-muted">Social Foundation Trust</span>
+        <span className="hidden text-[10px] font-semibold uppercase tracking-[0.24em] text-muted sm:block">Social Foundation Trust</span>
       </span>
     </Link>
   )

@@ -34,80 +34,83 @@ function Hero() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.hero-logo', { scale: 0.6, rotate: -90, opacity: 0, duration: 1.6, ease: 'expo.out', delay: 0.3 })
+      gsap.from('.hero-logo', { scale: 0.6, rotate: -90, opacity: 0, duration: 1.4, ease: 'expo.out', delay: 0.3 })
       gsap.to('.hero-rays', { rotate: 360, duration: 60, ease: 'none', repeat: -1 })
-      gsap.from('.hero-odia', { y: 30, opacity: 0, duration: 1.4, ease: 'expo.out', delay: 0.6 })
-      gsap.from('.hero-photo', { clipPath: 'inset(20% 10% 0% 10% round 48px)', duration: 1.8, ease: 'expo.inOut', delay: 0.6 })
-      gsap.from('.hero-photo img', { scale: 1.3, duration: 2.2, ease: 'expo.out', delay: 0.7 })
-      gsap.from('.hero-chip', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', delay: 1.6, stagger: 0.12 })
-      gsap.to('.hero-photo img', {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: { trigger: '.hero-photo', start: 'top 80%', end: 'bottom top', scrub: true },
-      })
+      gsap.from('.hero-odia', { x: -20, opacity: 0, duration: 1.2, ease: 'expo.out', delay: 0.5 })
+      gsap.from('.hero-photo', { clipPath: 'inset(12% 12% 12% 12% round 48px)', duration: 1.8, ease: 'expo.inOut', delay: 0.4 })
+      gsap.from('.hero-photo img', { scale: 1.3, duration: 2.2, ease: 'expo.out', delay: 0.5 })
+      gsap.from('.hero-chip', { y: 30, opacity: 0, duration: 1, ease: 'expo.out', delay: 1.4, stagger: 0.12 })
     }, ref)
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={ref} className="relative overflow-hidden pb-16 pt-28 sm:pt-32">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[640px] w-[900px] -translate-x-1/2 bg-[radial-gradient(closest-side,rgba(70,201,28,0.16),transparent)]" />
-      <div className="container-x relative flex flex-col items-center text-center">
-        <div className="relative grid place-items-center">
-          <svg viewBox="0 0 200 200" className="hero-rays absolute h-[210px] w-[210px] sm:h-[250px] sm:w-[250px]" aria-hidden="true">
-            {Array.from({ length: 36 }, (_, i) => (
-              <rect key={i} x="99" y="4" width="2" height={i % 2 ? 14 : 22} rx="1" fill="#f7c408" opacity={i % 2 ? 0.45 : 0.8} transform={`rotate(${i * 10} 100 100)`} />
-            ))}
-          </svg>
-          <LogoMark size={192} className="hero-logo relative h-32 w-32 shadow-[0_20px_60px_-15px_rgba(70,201,28,0.6)] sm:h-40 sm:w-40" />
+    <section ref={ref} className="relative overflow-hidden pb-16 pt-28 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-12 lg:pt-24">
+      <div className="pointer-events-none absolute -left-40 top-10 h-[620px] w-[620px] bg-[radial-gradient(closest-side,rgba(70,201,28,0.16),transparent)]" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-[520px] w-[520px] bg-[radial-gradient(closest-side,rgba(247,196,8,0.10),transparent)]" />
+      <div className="container-x relative grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
+        {/* Text column */}
+        <div className="flex flex-col items-center text-center lg:col-span-6 lg:items-start lg:text-left">
+          <div className="flex flex-col items-center gap-5 sm:flex-row sm:gap-9">
+            <div className="relative grid shrink-0 place-items-center">
+              <svg viewBox="0 0 200 200" className="hero-rays absolute h-[120px] w-[120px] sm:h-[140px] sm:w-[140px]" aria-hidden="true">
+                {Array.from({ length: 36 }, (_, i) => (
+                  <rect key={i} x="99" y="4" width="2.4" height={i % 2 ? 14 : 22} rx="1" fill="#f7c408" opacity={i % 2 ? 0.45 : 0.85} transform={`rotate(${i * 10} 100 100)`} />
+                ))}
+              </svg>
+              <LogoMark size={192} className="hero-logo relative h-[76px] w-[76px] shadow-[0_14px_40px_-12px_rgba(70,201,28,0.6)] sm:h-[88px] sm:w-[88px]" />
+            </div>
+            <div className="hero-odia text-center sm:text-left">
+              <OdiaWord className="text-[clamp(3rem,6vw,4.6rem)] leading-none text-brand" />
+              <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted sm:text-[11px]">Social Foundation Trust · Odisha</p>
+            </div>
+          </div>
+          <SplitHeading
+            as="h1"
+            onScroll={false}
+            delay={0.4}
+            lines={['Every problem', 'deserves a', '*helping* hand.']}
+            className="mt-8 text-[clamp(2.75rem,min(6vw,10vh),6.25rem)] lg:mt-10"
+          />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 max-w-lg text-[17px] leading-relaxed text-muted"
+          >
+            We are a team of young social workers from Odisha. Tell us your problem — we are here to listen, and to help.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.15, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start"
+          >
+            <Button to="/contact" variant="accent">Share your problem</Button>
+            <Button to="/blood-donation" variant="outline" icon={false}>
+              <span className="flex items-center gap-2"><Drop weight="fill" className="text-blood" /> Donate blood</span>
+            </Button>
+          </motion.div>
         </div>
-        <div className="hero-odia mt-6">
-          <OdiaWord className="text-[clamp(4rem,10vw,7.5rem)] text-brand" />
-          <p className="-mt-1 text-[12px] font-semibold uppercase tracking-[0.3em] text-muted">Samarpita Social Foundation Trust · Odisha</p>
-        </div>
-        <SplitHeading
-          as="h1"
-          onScroll={false}
-          delay={0.5}
-          lines={['Every problem deserves', 'a *helping* hand.']}
-          className="mt-8 text-[clamp(2.8rem,7vw,6.5rem)]"
-        />
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-xl text-[17px] leading-relaxed text-muted"
-        >
-          We are a team of young social workers from Odisha. Tell us your problem — we are here to listen, and to help.
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.25, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-8 flex flex-wrap items-center justify-center gap-3"
-        >
-          <Button to="/contact" variant="accent">Share your problem</Button>
-          <Button to="/blood-donation" variant="outline" icon={false}>
-            <span className="flex items-center gap-2"><Drop weight="fill" className="text-blood" /> Donate blood</span>
-          </Button>
-        </motion.div>
-      </div>
 
-      <div className="container-x relative mt-14">
-        <Img
-          src={images.team}
-          alt="Team Samarpita members holding the Team Samarpita banner"
-          className="hero-photo aspect-[4/3] rounded-[2rem] sm:aspect-[16/9] sm:rounded-[2.5rem] lg:aspect-[21/9]"
-          imgClassName="object-[50%_62%]"
-          loading="eager"
-        />
-        <div className="hero-chip absolute left-8 top-4 flex items-center gap-3 rounded-2xl bg-linen/90 p-3 pr-5 shadow-xl shadow-black/10 backdrop-blur sm:left-14 sm:top-6">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-mint text-night"><Clock size={20} weight="bold" /></span>
-          <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">24–48 hrs</b><span className="text-muted">response time</span></span>
-        </div>
-        <div className="hero-chip absolute bottom-6 right-8 hidden items-center gap-3 rounded-2xl bg-gold p-3 pr-5 text-night shadow-xl sm:flex sm:right-14">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-night/10"><LockSimple size={20} weight="bold" /></span>
-          <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">100% free</b><span className="text-night/70">&amp; confidential</span></span>
+        {/* Photo column */}
+        <div className="relative mx-auto w-full max-w-[min(100%,calc((100svh-9rem)*4/3))] lg:col-span-6">
+          <div className="pointer-events-none absolute -inset-3 rounded-[2.6rem] border border-gold/40 sm:-inset-4" />
+          <Img
+            src={images.team}
+            alt="Team Samarpita members holding the Team Samarpita banner"
+            className="hero-photo aspect-[4/3] rounded-[2rem] lg:rounded-[2.25rem]"
+            imgClassName="object-[50%_62%]"
+            loading="eager"
+          />
+          <div className="hero-chip absolute -left-2 top-6 flex items-center gap-3 rounded-2xl bg-linen/95 p-3 pr-5 shadow-xl shadow-black/15 backdrop-blur sm:-left-6">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-mint text-night"><Clock size={20} weight="bold" /></span>
+            <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">24–48 hrs</b><span className="text-muted">response time</span></span>
+          </div>
+          <div className="hero-chip absolute -right-2 bottom-6 flex items-center gap-3 rounded-2xl bg-gold p-3 pr-5 text-night shadow-xl sm:-right-6">
+            <span className="grid h-10 w-10 place-items-center rounded-xl bg-night/10"><LockSimple size={20} weight="bold" /></span>
+            <span className="text-left text-[13px] leading-tight"><b className="block text-[15px]">100% free</b><span className="text-night/70">&amp; confidential</span></span>
+          </div>
         </div>
       </div>
     </section>
@@ -354,8 +357,9 @@ function OdiaBand() {
   const ref = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.band-odia', { xPercent: 10 }, {
-        xPercent: -25,
+      gsap.fromTo('.band-odia', { yPercent: 12, scale: 0.94 }, {
+        yPercent: -8,
+        scale: 1,
         ease: 'none',
         scrollTrigger: { trigger: ref.current, start: 'top bottom', end: 'bottom top', scrub: true },
       })
@@ -365,13 +369,15 @@ function OdiaBand() {
   return (
     <section ref={ref} className="theme-dark relative overflow-hidden bg-cream py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(70,201,28,0.18),transparent_60%)]" />
-      <div className="band-odia pointer-events-none whitespace-nowrap leading-[1.15] text-brand opacity-20">
-        <OdiaWord repeat={2} className="text-[34vw] lg:text-[26rem]" />
-      </div>
-      <div className="container-x relative -mt-[12vw] lg:-mt-40">
-        <Quotes size={48} weight="fill" className="text-brand" />
-        <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-6 text-[clamp(2.75rem,6.5vw,6rem)]" />
-        <p className="mt-6 text-muted">— The spirit of Team Samarpita</p>
+      <div className="container-x relative flex flex-col items-center text-center">
+        <div className="band-odia pointer-events-none select-none leading-none text-brand opacity-25">
+          <OdiaWord className="text-[clamp(6rem,22vw,18rem)]" />
+        </div>
+        <div className="-mt-[clamp(3rem,9vw,7rem)] flex flex-col items-center">
+          <Quotes size={44} weight="fill" className="text-gold" />
+          <SplitHeading lines={['Service to humanity', 'is service to *God*.']} className="mt-5 text-[clamp(2.5rem,6vw,5.5rem)]" />
+          <p className="mt-6 text-muted">— The spirit of Samarpita</p>
+        </div>
       </div>
     </section>
   )
