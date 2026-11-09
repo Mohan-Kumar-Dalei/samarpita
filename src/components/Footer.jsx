@@ -3,6 +3,7 @@ import { FacebookLogo, InstagramLogo, YoutubeLogo, XLogo, WhatsappLogo, ArrowUp,
 import Logo from './Logo'
 import { nav, site } from '../data/site'
 import { scrollToTop } from '../lib/lenis'
+import OdiaWord from './OdiaWord'
 
 const socials = [
   { icon: FacebookLogo, href: site.socials.facebook, label: 'Facebook' },
@@ -60,14 +61,14 @@ export default function Footer() {
               <ul className="space-y-4 text-[14px] text-ink/80">
                 <li className="flex gap-3"><MapPin size={18} className="mt-0.5 shrink-0 text-brand" />{site.address}</li>
                 <li className="flex gap-3"><Phone size={18} className="mt-0.5 shrink-0 text-brand" /><a href={`tel:${site.phoneRaw}`} className="hover:text-brand">{site.phone}</a></li>
-                <li className="flex gap-3"><EnvelopeSimple size={18} className="mt-0.5 shrink-0 text-brand" /><a href={`mailto:${site.email}`} className="break-all hover:text-brand">{site.email}</a></li>
+                <li className="flex gap-3"><EnvelopeSimple size={18} className="mt-0.5 shrink-0 text-brand" /><a href={`mailto:${site.email}`} className="hover:text-brand">{site.email.split('@')[0]}@<wbr />{site.email.split('@')[1]}</a></li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="pointer-events-none mt-16 select-none text-center leading-[1.1] text-brand/[0.08]">
-          <span className="odia-callig text-[30vw] lg:text-[19rem]">{site.odia}</span>
+        <div className="pointer-events-none mt-16 select-none text-center leading-[1.1] text-brand opacity-[0.08]">
+          <OdiaWord className="text-[30vw] lg:text-[19rem]" />
         </div>
 
         <div className="flex flex-col items-center justify-between gap-4 border-t border-line py-8 text-[13px] text-muted sm:flex-row">

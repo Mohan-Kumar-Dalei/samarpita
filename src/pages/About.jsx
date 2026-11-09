@@ -8,6 +8,7 @@ import Img from '../components/Img'
 import Button from '../components/Button'
 import CTABand from '../components/CTABand'
 import { images, values, services, site } from '../data/site'
+import OdiaWord from '../components/OdiaWord'
 
 function TeamPhoto() {
   const ref = useRef(null)
@@ -62,7 +63,7 @@ function FounderCard() {
           <div data-reveal className="relative">
             <Img src={images.founder} alt="Founder of Team Samarpita" className="aspect-[4/5] rounded-[2rem]" imgClassName="object-top" />
             <div className="theme-dark absolute -bottom-6 -right-2 rounded-2xl bg-cream px-6 py-4 shadow-2xl sm:-right-6">
-              <p className="odia-callig text-4xl text-brand">{site.odia}</p>
+              <OdiaWord className="text-5xl text-brand" />
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">Founder</p>
             </div>
           </div>

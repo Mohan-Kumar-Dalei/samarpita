@@ -25,6 +25,7 @@ import Marquee from '../components/Marquee'
 import Img from '../components/Img'
 import CTABand from '../components/CTABand'
 import { images, services, stats, steps, stories, testimonials, site } from '../data/site'
+import OdiaWord from '../components/OdiaWord'
 
 function Hero() {
   const ref = useRef(null)
@@ -62,9 +63,7 @@ function Hero() {
           </div>
           <div className="lg:col-span-4 lg:pb-4">
             <div className="hero-odia -mt-[0.3em] leading-none">
-              <span className="odia-callig bg-gradient-to-br from-brand via-mint to-moss bg-clip-text px-2 pb-[0.12em] pt-[0.32em] leading-[1.2] text-[clamp(4.5rem,11vw,8.5rem)] text-transparent">
-                {site.odia}
-              </span>
+              <OdiaWord className="text-[clamp(4.5rem,11vw,8.5rem)] text-ink" />
               <p className="mt-1 text-[12px] font-semibold uppercase tracking-[0.3em] text-muted">Seva hi Samarpan</p>
             </div>
             <motion.p
@@ -362,8 +361,8 @@ function OdiaBand() {
   return (
     <section ref={ref} className="theme-dark relative overflow-hidden bg-cream py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(43,217,138,0.18),transparent_60%)]" />
-      <div className="band-odia pointer-events-none whitespace-nowrap leading-[1.15] text-brand/20">
-        <span className="odia-callig text-[34vw] lg:text-[26rem]">{site.odia} {site.odia}</span>
+      <div className="band-odia pointer-events-none whitespace-nowrap leading-[1.15] text-brand opacity-20">
+        <OdiaWord repeat={2} className="text-[34vw] lg:text-[26rem]" />
       </div>
       <div className="container-x relative -mt-[12vw] lg:-mt-40">
         <Quotes size={48} weight="fill" className="text-brand" />

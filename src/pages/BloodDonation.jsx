@@ -24,6 +24,7 @@ import Button from '../components/Button'
 import Accordion from '../components/Accordion'
 import { site } from '../data/site'
 import { sendForm } from '../lib/mail'
+import OdiaWord from '../components/OdiaWord'
 
 const GROUPS = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-']
 
@@ -95,7 +96,7 @@ function DonorCard({ name, group, district }) {
         </div>
       </div>
       <div className="relative mt-6 flex items-center justify-between border-t border-line pt-4 text-[12px] text-muted">
-        <span className="odia-callig text-xl text-brand">{site.odia}</span>
+        <OdiaWord className="text-2xl text-brand" />
         <span>On call when a life needs you</span>
       </div>
     </div>

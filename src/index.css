@@ -57,9 +57,14 @@
 
   --font-display: 'Instrument Serif', ui-serif, Georgia, serif;
   --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-odia: 'Noto Serif Oriya Variable', 'Instrument Serif', serif;
 
   --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@font-face {
+  font-family: 'Damana';
+  src: url('/fonts/damana-samarpita.woff2') format('woff2');
+  font-display: block;
 }
 
 @layer base {
@@ -114,14 +119,14 @@ html.lenis body {
   .label {
     @apply mb-2 block text-[13px] font-semibold text-ink/80;
   }
-  /* Odia calligraphy wordmark */
-  .odia-callig {
-    font-family: var(--font-odia);
-    font-weight: 900;
-    font-style: normal;
+  /* Odia wordmark in the Damana display font (see components/OdiaWord.jsx) */
+  .odia-word {
+    font-family: 'Damana', serif;
+    font-weight: normal;
     display: inline-block;
-    transform: skewX(-12deg);
-    letter-spacing: -0.01em;
+    line-height: 1.35;
+    padding-top: 0.15em;
+    white-space: nowrap;
   }
 }
 
