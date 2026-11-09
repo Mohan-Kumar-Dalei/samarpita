@@ -45,7 +45,7 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
-      <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-brand/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,var(--c-brand),transparent)] opacity-10" />
       <div className="container-x relative">
         <div className="grid items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
@@ -261,7 +261,7 @@ function BloodBand() {
   return (
     <section ref={ref} className="container-x pb-24 sm:pb-36">
       <div className="theme-dark grain relative overflow-hidden rounded-[2rem] bg-cream ring-1 ring-line sm:rounded-[3rem]">
-        <div className="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-blood/25 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -top-24 h-96 w-96 rounded-full bg-[radial-gradient(closest-side,var(--color-blood),transparent)] opacity-25" />
         <div className="relative grid gap-12 p-6 py-14 sm:p-14 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-7">
             <span className="eyebrow text-blood! before:bg-blood!">Blood donor registry</span>

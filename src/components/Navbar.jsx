@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion'
 import { List, X, ArrowUpRight, Drop } from '@phosphor-icons/react'
@@ -15,10 +15,14 @@ export default function Navbar() {
   const { scrollY } = useScroll()
   const { pathname } = useLocation()
 
+  const lastY = useRef(0)
   useMotionValueEvent(scrollY, 'change', (y) => {
-    const prev = scrollY.getPrevious() ?? 0
-    setHidden(y > prev && y > 200 && !open)
     setScrolled(y > 20)
+    // Ignore tiny movements so the bar doesn't flicker in and out
+    const delta = y - lastY.current
+    if (Math.abs(delta) < 12) return
+    setHidden(delta > 0 && y > 200 && !open)
+    lastY.current = y
   })
 
   useEffect(() => setOpen(false), [pathname])
@@ -34,12 +38,12 @@ export default function Navbar() {
       <motion.header
         animate={{ y: hidden ? '-110%' : '0%' }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4"
+        className="fixed inset-x-0 top-0 z-50 pt-3 will-change-transform sm:pt-4"
       >
         <div className="container-x">
           <div
             className={`flex items-center justify-between rounded-full py-2 pl-4 pr-2 transition-all duration-500 sm:pl-5 ${
-              scrolled || open ? 'bg-linen/80 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.25)] ring-1 ring-line backdrop-blur-xl' : ''
+              scrolled || open ? 'bg-linen/90 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.25)] ring-1 ring-line backdrop-blur-md' : ''
             }`}
           >
             <Logo />

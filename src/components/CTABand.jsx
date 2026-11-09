@@ -11,8 +11,8 @@ export default function CTABand({
   return (
     <section className="container-x py-20 sm:py-28">
       <div className="theme-dark grain relative overflow-hidden rounded-[2rem] bg-forest px-6 py-16 ring-1 ring-line sm:rounded-[3rem] sm:px-16 sm:py-24">
-        <div className="pointer-events-none absolute -bottom-32 -right-24 h-96 w-96 rounded-full bg-brand/30 blur-3xl" />
-        <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-moss/60 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -right-24 h-96 w-96 rounded-full bg-[radial-gradient(closest-side,var(--c-brand),transparent)] opacity-30" />
+        <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,var(--c-moss),transparent)] opacity-60" />
         <div className="relative grid items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <SplitHeading lines={lines} className="text-[clamp(2.75rem,6vw,5.5rem)]" />

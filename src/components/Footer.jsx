@@ -15,7 +15,7 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="theme-dark grain relative overflow-hidden border-t border-line bg-cream">
-      <div className="pointer-events-none absolute -left-40 top-0 h-[420px] w-[420px] rounded-full bg-brand/10 blur-3xl" />
+      <div className="pointer-events-none absolute -left-40 top-0 h-[420px] w-[420px] rounded-full bg-[radial-gradient(closest-side,var(--c-brand),transparent)] opacity-10" />
       <div className="container-x relative pt-20 sm:pt-28">
         <div className="grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-5">

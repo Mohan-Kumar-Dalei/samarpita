@@ -240,7 +240,7 @@ function VolunteerForm() {
   return (
     <section id="volunteer" className="container-x pb-24 sm:pb-32">
       <div className="theme-dark grain relative overflow-hidden rounded-[2rem] bg-forest p-6 ring-1 ring-line sm:rounded-[3rem] sm:p-14">
-        <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-brand/25 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -top-20 h-80 w-80 rounded-full bg-[radial-gradient(closest-side,var(--c-brand),transparent)] opacity-25" />
         <div className="relative grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <span className="eyebrow">Volunteer with us</span>

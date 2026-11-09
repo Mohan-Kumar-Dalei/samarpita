@@ -8,7 +8,9 @@ export const getLenis = () => lenisInstance
 // Smooth scrolling with Lenis, driven by GSAP's ticker so ScrollTrigger stays in sync
 export function useLenis() {
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.15, easing: (t) => 1 - Math.pow(1 - t, 4) })
+    // Respect users who prefer less motion: keep native scrolling
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const lenis = new Lenis({ lerp: 0.12, wheelMultiplier: 1, smoothWheel: true, syncTouch: false })
     lenisInstance = lenis
     lenis.on('scroll', ScrollTrigger.update)
     const raf = (time) => lenis.raf(time * 1000)

@@ -71,7 +71,7 @@ function useEligibility({ age, weight, gender, lastDonation, neverDonated }) {
 function DonorCard({ name, group, district }) {
   return (
     <div className="theme-dark grain relative overflow-hidden rounded-3xl bg-cream p-6 ring-1 ring-line">
-      <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-blood/40 blur-2xl" />
+      <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-[radial-gradient(closest-side,var(--color-blood),transparent)] opacity-40" />
       <div className="relative flex items-start justify-between">
         <div>
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted">Samarpita donor card</p>
@@ -462,7 +462,7 @@ function NeedBlood() {
   return (
     <section className="container-x pb-24 sm:pb-32">
       <div className="relative overflow-hidden rounded-[2rem] bg-blood p-8 text-white sm:rounded-[3rem] sm:p-14">
-        <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/15 blur-3xl" />
+        <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-[radial-gradient(closest-side,#fff,transparent)] opacity-15" />
         <div className="relative flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
             <p className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.22em] text-white/80">
